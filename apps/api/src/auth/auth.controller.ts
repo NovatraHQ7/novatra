@@ -47,10 +47,13 @@ export class AuthController {
   ) {}
 
   private setSessionCookie(res: Response, jwt: string) {
+    const secure = this.config.AUTH_COOKIE_SECURE === "true";
     res.cookie(this.config.AUTH_COOKIE_NAME, jwt, {
       httpOnly: true,
-      sameSite: "lax",
-      secure: this.config.AUTH_COOKIE_SECURE === "true",
+      // In production the web app and API are on different domains, so the cookie
+      // must be allowed in cross-site XHR/fetch requests (credentials: include).
+      sameSite: secure ? "none" : "lax",
+      secure,
       path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
@@ -87,7 +90,12 @@ export class AuthController {
 
   @Post("sign-out")
   async signOut(@Res({ passthrough: true }) res: Response) {
-    res.clearCookie(this.config.AUTH_COOKIE_NAME, { path: "/" });
+    const secure = this.config.AUTH_COOKIE_SECURE === "true";
+    res.clearCookie(this.config.AUTH_COOKIE_NAME, {
+      path: "/",
+      sameSite: secure ? "none" : "lax",
+      secure,
+    });
     return { ok: true };
   }
 
