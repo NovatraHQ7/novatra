@@ -1,26 +1,72 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0b0f17;
+  --surface: rgba(255, 255, 255, 0.10);
+  --surface-2: rgba(255, 255, 255, 0.14);
+  --border: rgba(255, 255, 255, 0.12);
+  --text: rgba(255, 255, 255, 0.92);
+  --muted: rgba(255, 255, 255, 0.70);
+  --muted-2: rgba(255, 255, 255, 0.55);
+  --brand: #6ee7ff;
+  --brand-2: #8b5cf6;
+  --danger: #fb7185;
+  --ok: #34d399;
+  --shadow: rgba(0, 0, 0, 0.35);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --font-sans: ui-rounded, "SF Pro Rounded", "SF Pro Display", "Avenir Next",
+    Avenir, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: radial-gradient(
+      1200px 800px at 15% 0%,
+      rgba(110, 231, 255, 0.12),
+      rgba(110, 231, 255, 0.05) 55%,
+      transparent 78%
+    ),
+    radial-gradient(
+      900px 600px at 85% 10%,
+      rgba(139, 92, 246, 0.14),
+      rgba(139, 92, 246, 0.06) 55%,
+      transparent 80%
+    ),
+    var(--bg);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(110, 231, 255, 0.22);
+}
+
+/* Utility classes used throughout the prototype */
+.nv-card {
+  background: linear-gradient(180deg, var(--surface-2), var(--surface));
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 80px var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+.nv-ring {
+  box-shadow: 0 0 0 1px rgba(110, 231, 255, 0.25);
+}
+
+.nv-grid {
+  background-image: linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 56px 56px;
+  background-position: -1px -1px;
+  opacity: 0.25;
+  mask-image: radial-gradient(600px 420px at 20% 10%, #000 35%, transparent 70%);
+  pointer-events: none;
 }
