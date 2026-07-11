@@ -1,5 +1,5 @@
-import { Injectable, Logger } from "@nestjs/common";
-import { Resend } from "resend";
+import { Injectable, Logger } from '@nestjs/common';
+import { Resend } from 'resend';
 
 @Injectable()
 export class EmailService {
@@ -9,8 +9,8 @@ export class EmailService {
     : null;
 
   async sendPasswordReset(params: { to: string; url: string }) {
-    const from = process.env.EMAIL_FROM || "Novatra <no-reply@novatrahq.com>";
-    const subject = "Reset your Novatra password";
+    const from = process.env.EMAIL_FROM || 'Novatra <no-reply@novatrahq.com>';
+    const subject = 'Reset your Novatra password';
     const html = `
       <div style="font-family: ui-sans-serif, system-ui; line-height:1.5">
         <h2 style="margin:0 0 12px 0">Reset your password</h2>
@@ -22,7 +22,7 @@ export class EmailService {
 
     if (!this.resend) {
       this.logger.warn(
-        `RESEND_API_KEY not set. Password reset email not sent. Link: ${params.url}`
+        `RESEND_API_KEY not set. Password reset email not sent. Link: ${params.url}`,
       );
       return;
     }

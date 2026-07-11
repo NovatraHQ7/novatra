@@ -3,9 +3,14 @@
   "private": true,
   "packageManager": "pnpm@9.0.0",
   "engines": {
-    "node": ">=26"
+    "node": ">=22"
+  },
+  "volta": {
+    "node": "22.19.0",
+    "pnpm": "9.0.0"
   },
   "scripts": {
+    "bootstrap": "bash ./scripts/bootstrap.sh",
     "dev": "turbo dev --filter=web --filter=api",
     "dev:web": "turbo dev --filter=web",
     "dev:api": "turbo dev --filter=api",

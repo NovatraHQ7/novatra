@@ -1,10 +1,10 @@
-import { Injectable } from "@nestjs/common";
-import { PrismaService } from "../db/prisma.service";
-import { SignJWT, jwtVerify } from "jose";
-import { getAuthConfig } from "./auth.config";
-import type { AuthUser } from "./auth.types";
-import bcrypt from "bcryptjs";
-import { randomBytes, createHash } from "crypto";
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../db/prisma.service';
+import { SignJWT, jwtVerify } from 'jose';
+import { getAuthConfig } from './auth.config';
+import type { AuthUser } from './auth.types';
+import bcrypt from 'bcryptjs';
+import { randomBytes, createHash } from 'crypto';
 
 const signUpSchema = {
   email: (email: string) => email.trim().toLowerCase(),
@@ -13,7 +13,9 @@ const signUpSchema = {
 @Injectable()
 export class AuthService {
   private readonly config = getAuthConfig(process.env);
-  private readonly secret = new TextEncoder().encode(this.config.AUTH_JWT_SECRET);
+  private readonly secret = new TextEncoder().encode(
+    this.config.AUTH_JWT_SECRET,
+  );
 
   constructor(private readonly prisma: PrismaService) {}
 
@@ -24,24 +26,25 @@ export class AuthService {
       fullName: user.fullName,
       provider: user.provider,
     })
-      .setProtectedHeader({ alg: "HS256" })
+      .setProtectedHeader({ alg: 'HS256' })
       .setIssuedAt()
-      .setExpirationTime("7d")
+      .setExpirationTime('7d')
       .sign(this.secret);
   }
 
   async verifyJwt(token: string): Promise<AuthUser | null> {
     try {
       const { payload } = await jwtVerify(token, this.secret);
-      if (!payload.sub || typeof payload.email !== "string") return null;
+      if (!payload.sub || typeof payload.email !== 'string') return null;
       return {
         id: String(payload.sub),
         email: payload.email,
-        fullName: typeof payload.fullName === "string" ? payload.fullName : null,
+        fullName:
+          typeof payload.fullName === 'string' ? payload.fullName : null,
         provider:
-          payload.provider === "GOOGLE" || payload.provider === "EMAIL"
+          payload.provider === 'GOOGLE' || payload.provider === 'EMAIL'
             ? payload.provider
-            : "EMAIL",
+            : 'EMAIL',
       };
     } catch {
       return null;
@@ -60,7 +63,7 @@ export class AuthService {
         email,
         fullName: params.fullName?.trim() || null,
         passwordHash,
-        provider: "EMAIL",
+        provider: 'EMAIL',
       },
       select: { id: true, email: true, fullName: true, provider: true },
     });
@@ -72,21 +75,39 @@ export class AuthService {
     if (!user?.passwordHash) return null;
     const ok = await bcrypt.compare(params.password, user.passwordHash);
     if (!ok) return null;
-    return { id: user.id, email: user.email, fullName: user.fullName, provider: user.provider };
+    return {
+      id: user.id,
+      email: user.email,
+      fullName: user.fullName,
+      provider: user.provider,
+    };
   }
 
-  async createOrLinkGoogleUser(params: { email: string; fullName?: string; googleSub: string }) {
+  async createOrLinkGoogleUser(params: {
+    email: string;
+    fullName?: string;
+    googleSub: string;
+  }) {
     const email = signUpSchema.email(params.email);
-    const existingBySub = await this.prisma.user.findUnique({ where: { googleSub: params.googleSub } });
+    const existingBySub = await this.prisma.user.findUnique({
+      where: { googleSub: params.googleSub },
+    });
     if (existingBySub) {
-      return { id: existingBySub.id, email: existingBySub.email, fullName: existingBySub.fullName, provider: existingBySub.provider };
+      return {
+        id: existingBySub.id,
+        email: existingBySub.email,
+        fullName: existingBySub.fullName,
+        provider: existingBySub.provider,
+      };
     }
 
-    const existingByEmail = await this.prisma.user.findUnique({ where: { email } });
+    const existingByEmail = await this.prisma.user.findUnique({
+      where: { email },
+    });
     if (existingByEmail) {
       const updated = await this.prisma.user.update({
         where: { id: existingByEmail.id },
-        data: { googleSub: params.googleSub, provider: "GOOGLE" },
+        data: { googleSub: params.googleSub, provider: 'GOOGLE' },
         select: { id: true, email: true, fullName: true, provider: true },
       });
       return updated;
@@ -96,7 +117,7 @@ export class AuthService {
       data: {
         email,
         fullName: params.fullName?.trim() || null,
-        provider: "GOOGLE",
+        provider: 'GOOGLE',
         googleSub: params.googleSub,
       },
       select: { id: true, email: true, fullName: true, provider: true },
@@ -104,13 +125,12 @@ export class AuthService {
   }
 
   createPasswordResetToken() {
-    const token = randomBytes(32).toString("hex");
-    const tokenHash = createHash("sha256").update(token).digest("hex");
+    const token = randomBytes(32).toString('hex');
+    const tokenHash = createHash('sha256').update(token).digest('hex');
     return { token, tokenHash };
   }
 
   hashResetToken(token: string) {
-    return createHash("sha256").update(token).digest("hex");
+    return createHash('sha256').update(token).digest('hex');
   }
 }
-

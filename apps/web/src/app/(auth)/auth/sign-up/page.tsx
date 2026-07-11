@@ -1,4 +1,4 @@
- "use client";
+"use client";
 
 import { Card, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -7,6 +7,7 @@ import { Icon } from "@/components/icons";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useSignUp } from "@/lib/auth";
+import { isAxiosError } from "axios";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -67,8 +68,12 @@ export default function SignUpPage() {
             try {
               await signUp.mutateAsync({ fullName, email, password });
               router.push("/dashboard");
-            } catch (e: any) {
-              setError(e?.response?.data?.message ?? "Sign up failed");
+            } catch (e: unknown) {
+              if (isAxiosError<{ message?: string }>(e)) {
+                setError(e.response?.data?.message ?? "Sign up failed");
+              } else {
+                setError("Sign up failed");
+              }
             }
           }}
         >
