@@ -9,9 +9,9 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "build": "echo \"(mobile build not wired yet)\"",
-    "lint": "echo \"(no lint yet)\"",
+    "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "echo \"(no tests yet)\""
+    "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
     "expo": "~55.0.24",
@@ -21,7 +21,9 @@
   },
   "devDependencies": {
     "@types/react": "~19.2.14",
-    "typescript": "~5.9.3"
+    "eslint": "^9.39.0",
+    "typescript": "~5.9.3",
+    "vitest": "^2.1.9"
   },
   "private": true
 }

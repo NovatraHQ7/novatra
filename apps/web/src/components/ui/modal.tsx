@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { cn } from "./cn";
 
@@ -17,11 +17,7 @@ export function Modal({
   description?: string;
   children: React.ReactNode;
 }) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = typeof window !== "undefined";
 
   useEffect(() => {
     if (!open) return;
@@ -50,7 +46,7 @@ export function Modal({
         className={cn(
           "nv-card fixed left-1/2 top-1/2 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-2xl p-5",
           "shadow-[0_30px_120px_rgba(0,0,0,0.6)]",
-          "max-h-[calc(100vh-2rem)] overflow-auto"
+          "max-h-[calc(100vh-2rem)] overflow-auto",
         )}
       >
         <div className="space-y-1">
@@ -63,6 +59,6 @@ export function Modal({
         <div className="mt-5">{children}</div>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }
