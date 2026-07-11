@@ -12,3 +12,12 @@ export type ApiError = {
   message?: string;
 };
 
+export async function warmApi(timeoutMs = 6000) {
+  try {
+    await api.get("/health", { timeout: timeoutMs });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
