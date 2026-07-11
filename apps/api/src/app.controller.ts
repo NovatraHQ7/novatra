@@ -1,12 +1,12 @@
-import { Controller, Get } from "@nestjs/common";
-import { AppService } from "./app.service";
-import { StellarService } from "./stellar/stellar.service";
+import { Controller, Get } from '@nestjs/common';
+import { AppService } from './app.service';
+import { StellarService } from './stellar/stellar.service';
 
 @Controller()
 export class AppController {
   constructor(
     private readonly appService: AppService,
-    private readonly stellarService: StellarService
+    private readonly stellarService: StellarService,
   ) {}
 
   @Get()
@@ -14,8 +14,17 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get("/corridors")
+  @Get('/corridors')
   listCorridors() {
     return this.stellarService.listCorridors();
+  }
+
+  @Get('/health')
+  health() {
+    return {
+      ok: true,
+      service: 'api',
+      timestamp: new Date().toISOString(),
+    };
   }
 }

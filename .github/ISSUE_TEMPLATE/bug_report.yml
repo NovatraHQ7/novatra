@@ -1,0 +1,54 @@
+name: Bug report
+description: Report a reproducible bug
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting an issue. Please include enough detail to reproduce it.
+  - type: input
+    id: summary
+    attributes:
+      label: Summary
+      placeholder: Short description of the problem
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Go to ...
+        2. Run ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: dropdown
+    id: app
+    attributes:
+      label: Affected area
+      options:
+        - apps/web
+        - apps/api
+        - apps/mobile
+        - packages/shared
+        - packages/stellar
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      placeholder: macOS 14, Node 26, pnpm 9

@@ -1,6 +1,6 @@
-import { Injectable } from "@nestjs/common";
-import { PassportStrategy } from "@nestjs/passport";
-import { Strategy } from "passport-google-oauth20";
+import { Injectable } from '@nestjs/common';
+import { PassportStrategy } from '@nestjs/passport';
+import { Strategy } from 'passport-google-oauth20';
 
 type GoogleProfile = {
   id: string;
@@ -14,18 +14,18 @@ export function isGoogleOauthConfigured(env = process.env) {
 }
 
 @Injectable()
-export class GoogleStrategy extends PassportStrategy(Strategy, "google") {
+export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   constructor() {
-    const clientID = process.env.GOOGLE_CLIENT_ID || "disabled";
-    const clientSecret = process.env.GOOGLE_CLIENT_SECRET || "disabled";
+    const clientID = process.env.GOOGLE_CLIENT_ID || 'disabled';
+    const clientSecret = process.env.GOOGLE_CLIENT_SECRET || 'disabled';
     const callbackURL =
       process.env.GOOGLE_CALLBACK_URL ||
-      "http://localhost:3001/auth/google/callback";
+      'http://localhost:3001/auth/google/callback';
     super({
       clientID,
       clientSecret,
       callbackURL,
-      scope: ["email", "profile"],
+      scope: ['email', 'profile'],
     });
   }
 
@@ -33,16 +33,16 @@ export class GoogleStrategy extends PassportStrategy(Strategy, "google") {
     _accessToken: string,
     _refreshToken: string,
     profile: GoogleProfile,
-    done: (err: any, user?: any) => void
+    done: (err: any, user?: any) => void,
   ) {
     const email = profile.emails?.[0]?.value;
-    if (!email) return done(new Error("Google profile missing email"));
+    if (!email) return done(new Error('Google profile missing email'));
 
     const fullName =
       profile.displayName ||
       [profile.name?.givenName, profile.name?.familyName]
         .filter(Boolean)
-        .join(" ")
+        .join(' ')
         .trim() ||
       undefined;
 

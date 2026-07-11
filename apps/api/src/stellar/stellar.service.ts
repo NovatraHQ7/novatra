@@ -1,10 +1,10 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable } from '@nestjs/common';
 import {
   createStellarClient,
   loadStellarConfig,
   listCorridors,
   type StellarClient,
-} from "@novatra/stellar";
+} from '@novatra/stellar';
 
 @Injectable()
 export class StellarService {
@@ -19,4 +19,3 @@ export class StellarService {
     return listCorridors();
   }
 }
-

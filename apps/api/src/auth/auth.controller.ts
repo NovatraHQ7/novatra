@@ -6,15 +6,15 @@ import {
   Req,
   Res,
   UnauthorizedException,
-} from "@nestjs/common";
-import type { Request, Response } from "express";
-import { z } from "zod";
-import { AuthService } from "./auth.service";
-import { getAuthConfig } from "./auth.config";
-import { PrismaService } from "../db/prisma.service";
-import { EmailService } from "../email/email.service";
-import { GoogleAuthGuard } from "./google.guard";
-import { UseGuards } from "@nestjs/common";
+} from '@nestjs/common';
+import type { Request, Response } from 'express';
+import { z } from 'zod';
+import { AuthService } from './auth.service';
+import { getAuthConfig } from './auth.config';
+import { PrismaService } from '../db/prisma.service';
+import { EmailService } from '../email/email.service';
+import { GoogleAuthGuard } from './google.guard';
+import { UseGuards } from '@nestjs/common';
 
 const signUpDto = z.object({
   email: z.string().email(),
@@ -36,31 +36,44 @@ const resetDto = z.object({
   newPassword: z.string().min(8),
 });
 
-@Controller("auth")
+type GoogleProfile = {
+  email: string;
+  fullName?: string;
+  googleSub: string;
+};
+
+type GoogleProfileRequest = Request & {
+  user?: GoogleProfile;
+};
+
+@Controller('auth')
 export class AuthController {
   private readonly config = getAuthConfig(process.env);
 
   constructor(
     private readonly auth: AuthService,
     private readonly prisma: PrismaService,
-    private readonly email: EmailService
+    private readonly email: EmailService,
   ) {}
 
   private setSessionCookie(res: Response, jwt: string) {
-    const secure = this.config.AUTH_COOKIE_SECURE === "true";
+    const secure = this.config.AUTH_COOKIE_SECURE === 'true';
     res.cookie(this.config.AUTH_COOKIE_NAME, jwt, {
       httpOnly: true,
       // In production the web app and API are on different domains, so the cookie
       // must be allowed in cross-site XHR/fetch requests (credentials: include).
-      sameSite: secure ? "none" : "lax",
+      sameSite: secure ? 'none' : 'lax',
       secure,
-      path: "/",
+      path: '/',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
   }
 
-  @Post("sign-up")
-  async signUp(@Body() body: unknown, @Res({ passthrough: true }) res: Response) {
+  @Post('sign-up')
+  async signUp(
+    @Body() body: unknown,
+    @Res({ passthrough: true }) res: Response,
+  ) {
     const dto = signUpDto.parse(body);
     const created = await this.auth.signUpWithEmail(dto);
     const jwt = await this.auth.signJwt({
@@ -73,11 +86,14 @@ export class AuthController {
     return { user: created };
   }
 
-  @Post("sign-in")
-  async signIn(@Body() body: unknown, @Res({ passthrough: true }) res: Response) {
+  @Post('sign-in')
+  async signIn(
+    @Body() body: unknown,
+    @Res({ passthrough: true }) res: Response,
+  ) {
     const dto = signInDto.parse(body);
     const user = await this.auth.signInWithEmail(dto);
-    if (!user) throw new UnauthorizedException("Invalid credentials");
+    if (!user) throw new UnauthorizedException('Invalid credentials');
     const jwt = await this.auth.signJwt({
       id: user.id,
       email: user.email,
@@ -88,27 +104,32 @@ export class AuthController {
     return { user };
   }
 
-  @Post("sign-out")
-  async signOut(@Res({ passthrough: true }) res: Response) {
-    const secure = this.config.AUTH_COOKIE_SECURE === "true";
+  @Post('sign-out')
+  signOut(@Res({ passthrough: true }) res: Response) {
+    const secure = this.config.AUTH_COOKIE_SECURE === 'true';
     res.clearCookie(this.config.AUTH_COOKIE_NAME, {
-      path: "/",
-      sameSite: secure ? "none" : "lax",
+      path: '/',
+      sameSite: secure ? 'none' : 'lax',
       secure,
     });
     return { ok: true };
   }
 
-  @Get("me")
+  @Get('me')
   async me(@Req() req: Request) {
-    const token = (req as any).cookies?.[this.config.AUTH_COOKIE_NAME] as string | undefined;
+    const cookieBag = (req as { cookies?: unknown }).cookies;
+    const tokenValue =
+      cookieBag && typeof cookieBag === 'object'
+        ? (cookieBag as Record<string, unknown>)[this.config.AUTH_COOKIE_NAME]
+        : undefined;
+    const token = typeof tokenValue === 'string' ? tokenValue : undefined;
     if (!token) throw new UnauthorizedException();
     const user = await this.auth.verifyJwt(token);
     if (!user) throw new UnauthorizedException();
     return { user };
   }
 
-  @Post("forgot-password")
+  @Post('forgot-password')
   async forgotPassword(@Body() body: unknown) {
     const dto = forgotDto.parse(body);
     const email = dto.email.trim().toLowerCase();
@@ -129,7 +150,7 @@ export class AuthController {
     return { ok: true };
   }
 
-  @Post("reset-password")
+  @Post('reset-password')
   async resetPassword(@Body() body: unknown) {
     const dto = resetDto.parse(body);
     const tokenHash = this.auth.hashResetToken(dto.token);
@@ -138,34 +159,37 @@ export class AuthController {
       where: { tokenHash, usedAt: null, expiresAt: { gt: new Date() } },
       include: { user: true },
     });
-    if (!rec) throw new UnauthorizedException("Invalid or expired token");
+    if (!rec) throw new UnauthorizedException('Invalid or expired token');
 
-    const passwordHash = await import("bcryptjs").then((m) => m.default.hash(dto.newPassword, 12));
+    const passwordHash = await import('bcryptjs').then((m) =>
+      m.default.hash(dto.newPassword, 12),
+    );
     await this.prisma.$transaction([
-      this.prisma.user.update({ where: { id: rec.userId }, data: { passwordHash, provider: "EMAIL" } }),
-      this.prisma.passwordResetToken.update({ where: { id: rec.id }, data: { usedAt: new Date() } }),
+      this.prisma.user.update({
+        where: { id: rec.userId },
+        data: { passwordHash, provider: 'EMAIL' },
+      }),
+      this.prisma.passwordResetToken.update({
+        where: { id: rec.id },
+        data: { usedAt: new Date() },
+      }),
     ]);
 
     return { ok: true };
   }
 
-  @Get("google/start")
+  @Get('google/start')
   @UseGuards(GoogleAuthGuard)
-  async googleStart() {
+  googleStart() {
     // passport redirect
     return;
   }
 
-  @Get("google/callback")
+  @Get('google/callback')
   @UseGuards(GoogleAuthGuard)
-  async googleCallback(
-    @Req() req: Request,
-    @Res() res: Response
-  ) {
-    const profile = (req as any).user as
-      | { email: string; fullName?: string; googleSub: string }
-      | undefined;
-    if (!profile) throw new UnauthorizedException("Google auth failed");
+  async googleCallback(@Req() req: Request, @Res() res: Response) {
+    const profile = (req as GoogleProfileRequest).user;
+    if (!profile) throw new UnauthorizedException('Google auth failed');
 
     const user = await this.auth.createOrLinkGoogleUser(profile);
     const jwt = await this.auth.signJwt({

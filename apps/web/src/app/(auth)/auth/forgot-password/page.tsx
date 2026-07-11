@@ -6,6 +6,7 @@ import { Button, ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/icons";
 import { useForgotPassword } from "@/lib/auth";
 import { useState } from "react";
+import { isAxiosError } from "axios";
 
 export default function ForgotPasswordPage() {
   const forgot = useForgotPassword();
@@ -52,8 +53,12 @@ export default function ForgotPasswordPage() {
             try {
               await forgot.mutateAsync({ email });
               setDone(true);
-            } catch (e: any) {
-              setError(e?.response?.data?.message ?? "Request failed");
+            } catch (e: unknown) {
+              if (isAxiosError<{ message?: string }>(e)) {
+                setError(e.response?.data?.message ?? "Request failed");
+              } else {
+                setError("Request failed");
+              }
             }
           }}
         >
