@@ -11,3 +11,4 @@ coverage
 .env
 .env.*
 NOVATRAHQ_PRIVATE.md
+.superpowers/
