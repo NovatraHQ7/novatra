@@ -7,6 +7,7 @@ import { Icon } from "@/components/icons";
 import { useSignIn } from "@/lib/auth";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { isAxiosError } from "axios";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -57,8 +58,12 @@ export default function SignInPage() {
             try {
               await signIn.mutateAsync({ email, password });
               router.push("/dashboard");
-            } catch (e: any) {
-              setError(e?.response?.data?.message ?? "Sign in failed");
+            } catch (e: unknown) {
+              if (isAxiosError<{ message?: string }>(e)) {
+                setError(e.response?.data?.message ?? "Sign in failed");
+              } else {
+                setError("Sign in failed");
+              }
             }
           }}
         >

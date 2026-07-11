@@ -1,0 +1,35 @@
+name: Feature request
+description: Propose an enhancement
+labels: [enhancement]
+body:
+  - type: input
+    id: problem
+    attributes:
+      label: Problem statement
+      placeholder: What user pain are we solving?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      placeholder: Describe the proposed behavior and scope.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: dropdown
+    id: area
+    attributes:
+      label: Primary area
+      options:
+        - Product flow
+        - Web frontend
+        - API backend
+        - Mobile app
+        - Shared packages
+        - Developer experience
+    validations:
+      required: true

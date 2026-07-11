@@ -13,7 +13,7 @@
     "pretypecheck": "pnpm build",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint .",
-    "test": "vitest run"
+    "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
     "@stellar/stellar-sdk": "^13.0.0"

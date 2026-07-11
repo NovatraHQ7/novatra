@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/icons";
 import { useResetPassword } from "@/lib/auth";
+import { isAxiosError } from "axios";
 
 export default function ResetPasswordPage() {
   return (
@@ -68,8 +69,12 @@ function ResetPasswordInner() {
               await reset.mutateAsync({ token, newPassword });
               setDone(true);
               setTimeout(() => router.push("/auth/sign-in"), 700);
-            } catch (e: any) {
-              setError(e?.response?.data?.message ?? "Reset failed");
+            } catch (e: unknown) {
+              if (isAxiosError<{ message?: string }>(e)) {
+                setError(e.response?.data?.message ?? "Reset failed");
+              } else {
+                setError("Reset failed");
+              }
             }
           }}
         >
