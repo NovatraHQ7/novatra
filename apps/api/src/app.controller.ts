@@ -18,4 +18,13 @@ export class AppController {
   listCorridors() {
     return this.stellarService.listCorridors();
   }
+
+  @Get('/health')
+  health() {
+    return {
+      ok: true,
+      service: 'api',
+      timestamp: new Date().toISOString(),
+    };
+  }
 }

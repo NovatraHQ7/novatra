@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/icons";
 import { useSignIn } from "@/lib/auth";
+import { warmApi } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { isAxiosError } from "axios";
@@ -15,6 +16,8 @@ export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [isWarmingEmail, setIsWarmingEmail] = useState(false);
+  const [isWarmingGoogle, setIsWarmingGoogle] = useState(false);
 
   return (
     <Card className="p-6">
@@ -48,17 +51,28 @@ export default function SignInPage() {
           </div>
         ) : null}
 
+        {isWarmingEmail || isWarmingGoogle ? (
+          <div className="rounded-xl border border-cyan-200/15 bg-cyan-300/10 px-3 py-2 text-sm text-cyan-100">
+            Waking server. This may take a few seconds on first request.
+          </div>
+        ) : null}
+
         <Button
           className="w-full"
           rightIcon={<Icon name="arrowRight" />}
-          loading={signIn.isPending}
-          loadingText="Signing in…"
+          loading={signIn.isPending || isWarmingEmail}
+          loadingText={isWarmingEmail ? "Waking server…" : "Signing in…"}
+          disabled={isWarmingGoogle}
           onClick={async () => {
             setError(null);
+            setIsWarmingEmail(true);
             try {
+              await warmApi();
+              setIsWarmingEmail(false);
               await signIn.mutateAsync({ email, password });
               router.push("/dashboard");
             } catch (e: unknown) {
+              setIsWarmingEmail(false);
               if (isAxiosError<{ message?: string }>(e)) {
                 setError(e.response?.data?.message ?? "Sign in failed");
               } else {
@@ -74,8 +88,13 @@ export default function SignInPage() {
           className="w-full cursor-pointer"
           variant="secondary"
           leftIcon={<Icon name="google" className="h-4 w-4" />}
-          loading={false}
-          onClick={() => {
+          loading={isWarmingGoogle}
+          loadingText="Waking server…"
+          disabled={signIn.isPending || isWarmingEmail}
+          onClick={async () => {
+            setError(null);
+            setIsWarmingGoogle(true);
+            await warmApi();
             window.location.href =
               (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001") +
               "/auth/google/start";
