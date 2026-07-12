@@ -26,7 +26,7 @@ export default function TransfersPage() {
             <Link
               key={t.id}
               href={`/transfers/${t.id}`}
-              className="flex items-start justify-between gap-3 py-4 transition hover:bg-surface sm:-mx-5 sm:px-5"
+              className="flex items-start justify-between gap-3 py-4 transition hover:bg-surface-2 sm:-mx-5 sm:px-5"
             >
               <div className="min-w-0">
                 <p className="truncate text-sm font-semibold text-white">
@@ -36,13 +36,13 @@ export default function TransfersPage() {
                 <p className="mt-1 text-sm text-muted">
                   To {t.beneficiary.fullName} • {t.beneficiary.bankName}
                 </p>
-                <p className="mt-1 text-xs text-muted-2">
+                <p className="mt-1 text-xs text-muted">
                   {formatDateTime(t.createdAt)} • Fee {formatMoney(t.fee.amount, "GBP")} • Rate ₦{t.rate.toLocaleString()}/£
                 </p>
               </div>
               <div className="flex items-center gap-3">
                 <StatusBadge status={t.status} />
-                <Icon name="chevronRight" className="h-4 w-4 text-muted" />
+                <Icon name="chevronRight" className="h-4 w-4 text-muted-2" />
               </div>
             </Link>
           ))}
