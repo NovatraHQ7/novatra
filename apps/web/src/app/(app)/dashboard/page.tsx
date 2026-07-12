@@ -81,14 +81,14 @@ export default function DashboardPage() {
         <Card>
           <CardHeader title="Recent transfer" subtitle="Most recent activity in your account." />
           <div className="mt-5 space-y-3">
-            <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+            <div className="rounded-xl border border-line bg-surface p-4">
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="text-sm font-semibold text-white">
                     {formatMoney(last.sendAmount.amount, "GBP")} →{" "}
                     {formatMoney(last.payoutAmount.amount, "NGN")}
                   </p>
-                  <p className="mt-1 text-sm text-white/60">
+                  <p className="mt-1 text-sm text-muted">
                     To {last.beneficiary.fullName} • {last.beneficiary.bankName}
                   </p>
                 </div>
@@ -151,11 +151,11 @@ export default function DashboardPage() {
             <SnapshotRow label="Total sent (recent)" value={formatMoney(last30TotalSend, "GBP")} />
             <SnapshotRow label="Fees paid (recent)" value={formatMoney(last30Fees, "GBP")} />
             <SnapshotRow label="Avg FX rate" value={`₦${avgRate.toLocaleString()} / £`} />
-            <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+            <div className="rounded-xl border border-line bg-surface p-4">
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="text-sm font-semibold text-white">Next step</p>
-                  <p className="mt-1 text-sm text-white/60">
+                  <p className="mt-1 text-sm text-muted">
                     Add a beneficiary and complete your first transfer.
                   </p>
                 </div>
@@ -177,7 +177,7 @@ export default function DashboardPage() {
       <div className="mt-4 grid gap-4 lg:grid-cols-3">
         <Card className="lg:col-span-2">
           <CardHeader title="Recent activity" subtitle="Transfers and their latest status." />
-          <div className="mt-5 divide-y divide-white/10">
+          <div className="mt-5 divide-y divide-line">
             {recent.map((t) => (
               <div key={t.id} className="flex items-start justify-between gap-3 py-4">
                 <div className="min-w-0">
@@ -185,10 +185,10 @@ export default function DashboardPage() {
                     {formatMoney(t.sendAmount.amount, "GBP")} →{" "}
                     {formatMoney(t.payoutAmount.amount, "NGN")}
                   </p>
-                  <p className="mt-1 truncate text-sm text-white/60">
+                  <p className="mt-1 truncate text-sm text-muted">
                     To {t.beneficiary.fullName} • {t.beneficiary.bankName}
                   </p>
-                  <p className="mt-1 text-xs text-white/45">
+                  <p className="mt-1 text-xs text-muted-2">
                     Fee {formatMoney(t.fee.amount, "GBP")} • Rate ₦{t.rate.toLocaleString()} / £
                   </p>
                 </div>
@@ -222,9 +222,9 @@ export default function DashboardPage() {
           <CardHeader title="Saved beneficiaries" subtitle="People you can send to (demo)." />
           <div className="mt-5 space-y-3">
             {savedBeneficiaries.map((b) => (
-              <div key={b.id} className="rounded-xl border border-white/10 bg-white/5 p-4">
+              <div key={b.id} className="rounded-xl border border-line bg-surface p-4">
                 <p className="text-sm font-semibold text-white">{b.fullName}</p>
-                <p className="mt-1 text-sm text-white/60">
+                <p className="mt-1 text-sm text-muted">
                   {b.bankName} • {b.accountNumberMasked}
                 </p>
               </div>
@@ -251,21 +251,21 @@ function Stat({
   hint: string;
 }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+    <div className="rounded-2xl border border-line bg-surface p-4">
       <div className="flex items-center gap-2 text-white/80">
         <Icon name={icon} className="h-4 w-4" />
         <p className="text-xs">{label}</p>
       </div>
       <p className="mt-2 text-sm font-semibold text-white">{value}</p>
-      <p className="mt-1 text-xs leading-5 text-white/55">{hint}</p>
+      <p className="mt-1 text-xs leading-5 text-muted">{hint}</p>
     </div>
   );
 }
 
 function SnapshotRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
-      <p className="text-sm text-white/70">{label}</p>
+    <div className="flex items-center justify-between gap-3 rounded-xl border border-line bg-surface px-4 py-3">
+      <p className="text-sm text-muted">{label}</p>
       <p className="text-sm font-semibold text-white">{value}</p>
     </div>
   );
@@ -285,14 +285,14 @@ function QuickAction({
   return (
     <Link
       href={href}
-      className="group rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:border-white/15 hover:bg-white/7"
+      className="group rounded-2xl border border-line bg-surface p-4 transition hover:border-line hover:bg-surface-2"
     >
       <div className="flex items-center gap-2 text-white/85">
         <Icon name={icon} className="h-4 w-4" />
         <p className="text-sm font-semibold text-white">{title}</p>
       </div>
-      <p className="mt-1 text-sm text-white/60">{subtitle}</p>
-      <div className="mt-3 flex items-center gap-2 text-xs text-white/55">
+      <p className="mt-1 text-sm text-muted">{subtitle}</p>
+      <div className="mt-3 flex items-center gap-2 text-xs text-muted">
         <span>Open</span>
         <Icon name="arrowRight" className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
       </div>

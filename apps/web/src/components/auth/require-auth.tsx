@@ -22,7 +22,7 @@ export function RequireAuth({ children }: { children: React.ReactNode }) {
       <div className="flex min-h-[60vh] items-center justify-center px-4">
         <div className="nv-card w-full max-w-md rounded-2xl p-5 text-center">
           <p className="text-sm font-semibold text-white">Loading…</p>
-          <p className="mt-1 text-sm text-white/60">Checking your session.</p>
+          <p className="mt-1 text-sm text-muted">Checking your session.</p>
         </div>
       </div>
     );

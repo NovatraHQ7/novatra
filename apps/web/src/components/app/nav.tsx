@@ -28,8 +28,8 @@ export function Nav() {
             className={cn(
               "flex items-center gap-2 rounded-xl px-3 py-2 text-sm transition",
               active
-                ? "bg-white/10 text-white nv-ring"
-                : "text-white/70 hover:bg-white/7 hover:text-white"
+                ? "border-l-2 border-accent bg-accent-soft text-white"
+                : "text-muted hover:bg-surface hover:text-white"
             )}
           >
             <Icon name={it.icon} className="h-4 w-4" />
@@ -45,7 +45,7 @@ export function MobileNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-20 border-t border-white/10 bg-[rgba(11,15,23,0.72)] px-2 py-2 backdrop-blur lg:hidden">
+    <nav className="fixed inset-x-0 bottom-0 z-20 border-t border-line bg-background px-2 py-2 lg:hidden">
       <div className="mx-auto grid max-w-md grid-cols-4 gap-1">
         {items.map((it) => {
           const active =
@@ -58,8 +58,8 @@ export function MobileNav() {
               className={cn(
                 "flex flex-col items-center justify-center gap-1 rounded-2xl px-2 py-2 text-[11px] transition",
                 active
-                  ? "bg-white/10 text-white nv-ring"
-                  : "text-white/60 hover:bg-white/7 hover:text-white"
+                  ? "bg-accent-soft text-accent"
+                  : "text-muted hover:bg-surface hover:text-white"
               )}
             >
               <Icon name={it.icon} className="h-4 w-4" />

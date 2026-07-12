@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardHeader } from "@/components/ui/card";
+import { AuthShell } from "@/components/auth/auth-shell";
 import { Input } from "@/components/ui/input";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/icons";
@@ -27,13 +27,16 @@ export default function SignInPage() {
   const isFormValid = !emailError && !passwordError;
 
   return (
-    <Card className="p-6">
-      <CardHeader
-        title="Welcome back"
-        subtitle="Sign in to continue your transfer."
-      />
+    <AuthShell
+      eyebrow="Welcome back"
+      headline="Pick up right where you left off."
+      mobileHeadline="Welcome back"
+      panel={<LastQuoteCard />}
+    >
+      <h1 className="text-xl font-semibold text-white">Sign in</h1>
+      <p className="mt-1 text-sm text-muted">Continue your transfer.</p>
 
-      <div className="mt-5 space-y-4">
+      <div className="mt-6 space-y-4">
         <Input
           id="email"
           name="email"
@@ -57,13 +60,13 @@ export default function SignInPage() {
         />
 
         {error ? (
-          <div className="rounded-xl border border-rose-200/15 bg-rose-300/10 px-3 py-2 text-sm text-rose-100">
+          <div className="rounded-xl border border-danger/20 bg-danger-soft px-3 py-2 text-sm text-danger">
             {error}
           </div>
         ) : null}
 
         {isWarmingEmail || isWarmingGoogle ? (
-          <div className="rounded-xl border border-cyan-200/15 bg-cyan-300/10 px-3 py-2 text-sm text-cyan-100">
+          <div className="rounded-xl border border-accent/20 bg-accent-soft px-3 py-2 text-sm text-accent">
             Waking server. This may take a few seconds on first request.
           </div>
         ) : null}
@@ -117,27 +120,42 @@ export default function SignInPage() {
         </Button>
 
         <div className="flex items-center gap-3 py-1">
-          <div className="h-px flex-1 bg-white/10" />
-          <span className="text-xs text-white/45">Demo</span>
-          <div className="h-px flex-1 bg-white/10" />
+          <div className="h-px flex-1 bg-line" />
+          <span className="text-xs text-muted-2">Demo</span>
+          <div className="h-px flex-1 bg-line" />
         </div>
         <Button className="w-full" variant="ghost">
           Continue as guest
         </Button>
 
-        <p className="text-center text-sm text-white/60">
+        <p className="text-center text-sm text-muted">
           <ButtonLink href="/auth/forgot-password" variant="ghost" size="sm">
             Forgot password?
           </ButtonLink>
         </p>
 
-        <p className="text-center text-sm text-white/60">
+        <p className="text-center text-sm text-muted">
           New to Novatra?{" "}
           <ButtonLink href="/auth/sign-up" variant="ghost" size="sm">
             Create an account
           </ButtonLink>
         </p>
       </div>
-    </Card>
+    </AuthShell>
+  );
+}
+
+function LastQuoteCard() {
+  return (
+    <div className="rounded-2xl border border-line bg-background p-5">
+      <p className="text-xs text-muted">Last quote</p>
+      <p className="mt-1 text-xl font-semibold text-white">
+        £250 → ₦457,000
+      </p>
+      <div className="mt-2 flex items-center justify-between text-xs text-muted">
+        <span>Delivery</span>
+        <span className="font-semibold text-accent">Under 1 min</span>
+      </div>
+    </div>
   );
 }

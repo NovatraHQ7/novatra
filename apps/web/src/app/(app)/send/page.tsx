@@ -106,15 +106,15 @@ export default function SendPage() {
                     <select
                       value={beneficiaryId}
                       onChange={(e) => setBeneficiaryId(e.target.value)}
-                      className="h-11 w-full rounded-xl border border-white/15 bg-white/5 px-3.5 text-sm text-white outline-none transition focus:border-white/25 focus:bg-white/7"
+                      className="h-11 w-full rounded-xl border border-line bg-surface px-3.5 text-sm text-white outline-none transition focus:border-accent/40 focus:bg-surface-2"
                     >
                       {beneficiaries.map((b) => (
-                        <option key={b.id} value={b.id} className="bg-[#0b0f17]">
+                        <option key={b.id} value={b.id} className="bg-[#101014]">
                           {b.fullName} • {b.bankName} {b.accountNumberMasked}
                         </option>
                       ))}
                     </select>
-                    <p className="text-xs text-white/55">
+                    <p className="text-xs text-muted">
                       You’ll be able to add/edit beneficiaries in the next iteration.
                     </p>
                   </div>
@@ -145,17 +145,17 @@ export default function SendPage() {
               </div>
             ) : step === 2 ? (
               <div className="space-y-4">
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+                <div className="rounded-2xl border border-line bg-surface p-5">
                   <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                      <p className="text-sm text-white/60">Sending</p>
+                      <p className="text-sm text-muted">Sending</p>
                       <p className="text-xl font-semibold text-white">
                         {formatMoney(parsedAmount || 0, "GBP")}
                       </p>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-white/70">
+                    <div className="flex items-center gap-2 text-sm text-muted">
                       <Badge variant="muted">{methodLabel(method)}</Badge>
-                      <span className="text-white/35">•</span>
+                      <span className="text-muted-2">•</span>
                       <span>UK → Nigeria</span>
                     </div>
                   </div>
@@ -171,13 +171,13 @@ export default function SendPage() {
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+                <div className="rounded-2xl border border-line bg-surface p-5">
                   <p className="text-sm font-semibold text-white">Recipient</p>
-                  <p className="mt-1 text-sm text-white/70">
+                  <p className="mt-1 text-sm text-muted">
                     {selectedBeneficiary.fullName} • {selectedBeneficiary.bankName}{" "}
                     {selectedBeneficiary.accountNumberMasked}
                   </p>
-                  <p className="mt-1 text-xs text-white/55">
+                  <p className="mt-1 text-xs text-muted">
                     Payout method: bank transfer (mock)
                   </p>
                 </div>
@@ -193,11 +193,11 @@ export default function SendPage() {
               </div>
             ) : (
               <div className="space-y-4">
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+                <div className="rounded-2xl border border-line bg-surface p-5">
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <p className="text-sm font-semibold text-white">Transfer in progress</p>
-                      <p className="mt-1 text-sm text-white/60">
+                      <p className="mt-1 text-sm text-muted">
                         We’re settling your transfer and preparing payout.
                       </p>
                     </div>
@@ -241,7 +241,7 @@ export default function SendPage() {
             title="What users see"
             subtitle="We keep it simple and transparent."
           />
-          <div className="mt-5 space-y-3 text-sm text-white/70">
+          <div className="mt-5 space-y-3 text-sm text-muted">
             <Callout icon="shield" title="Trust by design">
               Clear fees, visible FX, and predictable status updates.
             </Callout>
@@ -279,7 +279,7 @@ function Pill({ active, label }: { active: boolean; label: string }) {
     <span
       className={[
         "rounded-full border px-2.5 py-1",
-        active ? "border-cyan-200/25 bg-cyan-300/15 text-cyan-100" : "border-white/10 bg-white/5 text-white/60",
+        active ? "border-accent/25 bg-accent-soft text-accent" : "border-line bg-surface text-muted",
       ].join(" ")}
     >
       {label}
@@ -301,15 +301,15 @@ function FundingTabs({
       className={[
         "flex-1 rounded-xl border px-3 py-3 text-left text-sm transition",
         method === m
-          ? "border-cyan-200/25 bg-cyan-300/10 text-white nv-ring"
-          : "border-white/10 bg-white/5 text-white/70 hover:bg-white/7",
+          ? "border-accent/25 bg-accent-soft text-accent"
+          : "border-line bg-surface text-muted hover:bg-surface-2",
       ].join(" ")}
     >
       <div className="flex items-center gap-2">
         <Icon name={icon} className="h-4 w-4" />
         <span className="font-medium">{label}</span>
       </div>
-      <p className="mt-1 text-xs text-white/55">
+      <p className="mt-1 text-xs text-muted">
         {m === "card"
           ? "Fastest checkout (demo)."
           : m === "bank"
@@ -342,11 +342,11 @@ function StablecoinDepositCard({
   const memo = "NV-UKNG-000742";
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+    <div className="rounded-2xl border border-line bg-surface p-5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="space-y-1">
           <p className="text-sm font-semibold text-white">Stablecoin deposit</p>
-          <p className="text-sm text-white/60">
+          <p className="text-sm text-muted">
             UI-only demo. In production, you’d deposit to a unique address + memo for this transfer.
           </p>
         </div>
@@ -354,8 +354,8 @@ function StablecoinDepositCard({
       </div>
 
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
-        <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-          <p className="text-xs text-white/55">Asset</p>
+        <div className="rounded-xl border border-line bg-surface p-4">
+          <p className="text-xs text-muted">Asset</p>
           <div className="mt-2 flex gap-2">
             <button
               type="button"
@@ -363,8 +363,8 @@ function StablecoinDepositCard({
               className={[
                 "rounded-full border px-3 py-1 text-xs font-medium transition",
                 asset === "USDC"
-                  ? "border-cyan-200/25 bg-cyan-300/15 text-cyan-100"
-                  : "border-white/10 bg-white/5 text-white/70 hover:bg-white/7",
+                  ? "border-accent/25 bg-accent-soft text-accent"
+                  : "border-line bg-surface text-muted hover:bg-surface-2",
               ].join(" ")}
             >
               USDC
@@ -375,28 +375,28 @@ function StablecoinDepositCard({
               className={[
                 "rounded-full border px-3 py-1 text-xs font-medium transition",
                 asset === "USDT"
-                  ? "border-cyan-200/25 bg-cyan-300/15 text-cyan-100"
-                  : "border-white/10 bg-white/5 text-white/70 hover:bg-white/7",
+                  ? "border-accent/25 bg-accent-soft text-accent"
+                  : "border-line bg-surface text-muted hover:bg-surface-2",
               ].join(" ")}
             >
               USDT
             </button>
           </div>
-          <p className="mt-2 text-xs text-white/45">
+          <p className="mt-2 text-xs text-muted-2">
             We’ll support more assets later. For now: {asset}.
           </p>
         </div>
 
-        <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-          <p className="text-xs text-white/55">Confirmations</p>
+        <div className="rounded-xl border border-line bg-surface p-4">
+          <p className="text-xs text-muted">Confirmations</p>
           <p className="mt-2 text-sm font-semibold text-white">~ seconds</p>
-          <p className="mt-1 text-xs text-white/45">
+          <p className="mt-1 text-xs text-muted-2">
             Stellar settlement is near-instant once the deposit is seen.
           </p>
         </div>
 
-        <div className="sm:col-span-2 rounded-xl border border-white/10 bg-white/5 p-4">
-          <p className="text-xs text-white/55">Deposit address</p>
+        <div className="sm:col-span-2 rounded-xl border border-line bg-surface p-4">
+          <p className="text-xs text-muted">Deposit address</p>
           <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <code className="break-all rounded-lg bg-black/25 px-3 py-2 text-xs text-white/80">
               {depositAddress}
@@ -416,13 +416,13 @@ function StablecoinDepositCard({
               Copy
             </Button>
           </div>
-          <p className="mt-2 text-xs text-white/45">
+          <p className="mt-2 text-xs text-muted-2">
             In production this would be a per-user/per-transfer address (or a shared address with a required memo).
           </p>
         </div>
 
-        <div className="sm:col-span-2 rounded-xl border border-cyan-200/15 bg-cyan-300/10 p-4">
-          <p className="text-xs text-white/55">Memo (required)</p>
+        <div className="sm:col-span-2 rounded-xl border border-accent/15 bg-accent-soft p-4">
+          <p className="text-xs text-muted">Memo (required)</p>
           <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <code className="break-all rounded-lg bg-black/25 px-3 py-2 text-xs text-white/90">
               {memo}
@@ -442,7 +442,7 @@ function StablecoinDepositCard({
               Copy
             </Button>
           </div>
-          <p className="mt-2 text-xs text-white/55">
+          <p className="mt-2 text-xs text-muted">
             Without the memo, the deposit can’t be matched to your transfer.
           </p>
         </div>
@@ -463,11 +463,11 @@ function SummaryItem({
   return (
     <div
       className={[
-        "rounded-xl border bg-white/5 p-4",
-        highlight ? "border-cyan-200/20 nv-ring" : "border-white/10",
+        "rounded-xl border bg-surface p-4",
+        highlight ? "border-accent/20 bg-accent-soft" : "border-line",
       ].join(" ")}
     >
-      <p className="text-xs text-white/55">{label}</p>
+      <p className="text-xs text-muted">{label}</p>
       <p className="mt-1 text-sm font-semibold text-white">{value}</p>
     </div>
   );
@@ -483,12 +483,12 @@ function Callout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+    <div className="rounded-2xl border border-line bg-surface p-4">
       <div className="flex items-center gap-2 text-white/85">
         <Icon name={icon} className="h-4 w-4" />
         <p className="text-sm font-semibold text-white">{title}</p>
       </div>
-      <p className="mt-2 text-sm leading-6 text-white/60">{children}</p>
+      <p className="mt-2 text-sm leading-6 text-muted">{children}</p>
     </div>
   );
 }
@@ -510,17 +510,17 @@ function TimelineItem({
         className={[
           "mt-0.5 flex h-7 w-7 items-center justify-center rounded-full border",
           done
-            ? "border-emerald-200/20 bg-emerald-300/15 text-emerald-100"
+            ? "border-accent/20 bg-accent-soft text-accent"
             : active
-              ? "border-cyan-200/25 bg-cyan-300/15 text-cyan-100"
-              : "border-white/10 bg-white/5 text-white/50",
+              ? "border-accent bg-accent/20 text-accent"
+              : "border-line bg-surface text-muted",
         ].join(" ")}
       >
         {done ? <Icon name="check" className="h-4 w-4" /> : <span className="text-xs">•</span>}
       </div>
       <div className="min-w-0">
         <p className="text-sm font-medium text-white">{label}</p>
-        <p className="text-sm text-white/60">{description}</p>
+        <p className="text-sm text-muted">{description}</p>
       </div>
     </div>
   );

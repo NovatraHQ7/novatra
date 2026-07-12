@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardHeader } from "@/components/ui/card";
+import { AuthShell } from "@/components/auth/auth-shell";
 import { Input } from "@/components/ui/input";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/icons";
@@ -30,13 +30,20 @@ export default function SignUpPage() {
   const isFormValid = !fullNameError && !emailError && !passwordError;
 
   return (
-    <Card className="p-6">
-      <CardHeader
-        title="Create your account"
-        subtitle="Start sending money in seconds (demo UI)."
-      />
+    <AuthShell
+      eyebrow="Join Novatra"
+      headline="Send money home in seconds, not days."
+      mobileHeadline="Join Novatra"
+      panel={<ValueProps />}
+    >
+      <h1 className="text-xl font-semibold text-white">
+        Create your account
+      </h1>
+      <p className="mt-1 text-sm text-muted">
+        Start sending money in seconds (demo UI).
+      </p>
 
-      <div className="mt-5 space-y-4">
+      <div className="mt-6 space-y-4">
         <Input
           id="fullName"
           name="fullName"
@@ -71,7 +78,7 @@ export default function SignUpPage() {
         />
 
         {error ? (
-          <div className="rounded-xl border border-rose-200/15 bg-rose-300/10 px-3 py-2 text-sm text-rose-100">
+          <div className="rounded-xl border border-danger/20 bg-danger-soft px-3 py-2 text-sm text-danger">
             {error}
           </div>
         ) : null}
@@ -113,31 +120,31 @@ export default function SignUpPage() {
           Sign up with Google
         </Button>
 
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-          <p className="text-sm font-semibold text-white">What you’ll get</p>
-          <ul className="mt-2 space-y-2 text-sm text-white/60">
-            <li className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-cyan-300/70" />
-              Transparent quotes before you pay
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-violet-400/70" />
-              Fast settlement feel, familiar payouts
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-300/70" />
-              Clear status updates and receipts
-            </li>
-          </ul>
-        </div>
-
-        <p className="text-center text-sm text-white/60">
+        <p className="text-center text-sm text-muted">
           Already have an account?{" "}
           <ButtonLink href="/auth/sign-in" variant="ghost" size="sm">
             Sign in
           </ButtonLink>
         </p>
       </div>
-    </Card>
+    </AuthShell>
+  );
+}
+
+function ValueProps() {
+  const items = [
+    "Transparent quotes before you pay",
+    "Fast settlement feel, familiar payouts",
+    "Clear status updates and receipts",
+  ];
+  return (
+    <ul className="space-y-3">
+      {items.map((item) => (
+        <li key={item} className="flex items-start gap-2 text-sm text-muted">
+          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+          {item}
+        </li>
+      ))}
+    </ul>
   );
 }

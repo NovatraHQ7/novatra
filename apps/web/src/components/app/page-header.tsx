@@ -24,7 +24,7 @@ export function PageHeader({
             </Badge>
           ) : null}
         </div>
-        {subtitle ? <p className="text-sm text-white/60">{subtitle}</p> : null}
+        {subtitle ? <p className="text-sm text-muted">{subtitle}</p> : null}
       </div>
       {right ? (
         <div className="flex w-full flex-wrap items-center gap-2 md:w-auto md:justify-end">

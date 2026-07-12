@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardHeader } from "@/components/ui/card";
+import { AuthShell } from "@/components/auth/auth-shell";
 import { Input } from "@/components/ui/input";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/icons";
@@ -15,13 +15,22 @@ export default function ForgotPasswordPage() {
   const [error, setError] = useState<string | null>(null);
 
   return (
-    <Card className="p-6">
-      <CardHeader
-        title="Reset password"
-        subtitle="We’ll email you a reset link (if the account exists)."
-      />
+    <AuthShell
+      eyebrow="Account recovery"
+      headline="We'll get you back in, securely."
+      mobileHeadline="Account recovery"
+      panel={
+        <p className="text-sm leading-6 text-muted">
+          No stress — resetting your password takes less than a minute.
+        </p>
+      }
+    >
+      <h1 className="text-xl font-semibold text-white">Reset password</h1>
+      <p className="mt-1 text-sm text-muted">
+        We’ll email you a reset link (if the account exists).
+      </p>
 
-      <div className="mt-5 space-y-4">
+      <div className="mt-6 space-y-4">
         <Input
           id="email"
           name="email"
@@ -32,13 +41,13 @@ export default function ForgotPasswordPage() {
         />
 
         {error ? (
-          <div className="rounded-xl border border-rose-200/15 bg-rose-300/10 px-3 py-2 text-sm text-rose-100">
+          <div className="rounded-xl border border-danger/20 bg-danger-soft px-3 py-2 text-sm text-danger">
             {error}
           </div>
         ) : null}
 
         {done ? (
-          <div className="rounded-xl border border-emerald-200/15 bg-emerald-300/10 px-3 py-2 text-sm text-emerald-100">
+          <div className="rounded-xl border border-accent/20 bg-accent-soft px-3 py-2 text-sm text-accent">
             If that email exists, a reset link has been sent.
           </div>
         ) : null}
@@ -65,12 +74,12 @@ export default function ForgotPasswordPage() {
           Send reset link
         </Button>
 
-        <p className="text-center text-sm text-white/60">
+        <p className="text-center text-sm text-muted">
           <ButtonLink href="/auth/sign-in" variant="ghost" size="sm">
             Back to sign in
           </ButtonLink>
         </p>
       </div>
-    </Card>
+    </AuthShell>
   );
 }

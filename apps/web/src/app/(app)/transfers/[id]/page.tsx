@@ -61,14 +61,14 @@ export default async function TransferDetailsPage({
             <Item label="Payout" value={`${transfer.beneficiary.bankName} ${transfer.beneficiary.accountNumberMasked}`} />
           </div>
 
-          <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
+          <div className="mt-6 rounded-2xl border border-line bg-surface p-5">
             <p className="text-sm font-semibold text-white">Cost breakdown</p>
             <div className="mt-4 grid gap-3 sm:grid-cols-3">
               <Item label="You send" value={formatMoney(transfer.sendAmount.amount, "GBP")} strong />
               <Item label="Fee" value={formatMoney(transfer.fee.amount, "GBP")} />
               <Item label="Rate" value={`₦${transfer.rate.toLocaleString()} / £`} />
               <div className="sm:col-span-3">
-                <div className="mt-2 flex items-center justify-between rounded-xl border border-cyan-200/15 bg-cyan-300/10 px-4 py-3">
+                <div className="mt-2 flex items-center justify-between rounded-xl border border-accent/15 bg-accent-soft px-4 py-3">
                   <span className="text-sm text-white/75">Recipient gets</span>
                   <span className="text-sm font-semibold text-white">
                     {formatMoney(transfer.payoutAmount.amount, "NGN")}
@@ -81,7 +81,7 @@ export default async function TransferDetailsPage({
 
         <Card>
           <CardHeader title="Next steps" subtitle="What happens behind the scenes." />
-          <div className="mt-5 space-y-3 text-sm text-white/70">
+          <div className="mt-5 space-y-3 text-sm text-muted">
             <Hint icon="shield" title="Compliance checks">
               KYC/AML and limits run before settlement and payout.
             </Hint>
@@ -108,8 +108,8 @@ function Item({
   strong?: boolean;
 }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-      <p className="text-xs text-white/55">{label}</p>
+    <div className="rounded-2xl border border-line bg-surface p-4">
+      <p className="text-xs text-muted">{label}</p>
       <p className={strong ? "mt-1 text-sm font-semibold text-white" : "mt-1 text-sm text-white/80"}>
         {value}
       </p>
@@ -127,12 +127,12 @@ function Hint({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+    <div className="rounded-2xl border border-line bg-surface p-4">
       <div className="flex items-center gap-2 text-white/85">
         <Icon name={icon} className="h-4 w-4" />
         <p className="text-sm font-semibold text-white">{title}</p>
       </div>
-      <p className="mt-2 text-sm leading-6 text-white/60">{children}</p>
+      <p className="mt-2 text-sm leading-6 text-muted">{children}</p>
     </div>
   );
 }
