@@ -46,7 +46,7 @@ export default function SignInPage() {
         />
 
         {error ? (
-          <div className="rounded-xl border border-rose-200/15 bg-rose-300/10 px-3 py-2 text-sm text-rose-100">
+          <div className="rounded-xl border border-danger/20 bg-danger-soft px-3 py-2 text-sm text-danger">
             {error}
           </div>
         ) : null}
@@ -104,21 +104,21 @@ export default function SignInPage() {
         </Button>
 
         <div className="flex items-center gap-3 py-1">
-          <div className="h-px flex-1 bg-white/10" />
-          <span className="text-xs text-white/45">Demo</span>
-          <div className="h-px flex-1 bg-white/10" />
+          <div className="h-px flex-1 bg-line" />
+          <span className="text-xs text-muted-2">Demo</span>
+          <div className="h-px flex-1 bg-line" />
         </div>
         <Button className="w-full" variant="ghost">
           Continue as guest
         </Button>
 
-        <p className="text-center text-sm text-white/60">
+        <p className="text-center text-sm text-muted">
           <ButtonLink href="/auth/forgot-password" variant="ghost" size="sm">
             Forgot password?
           </ButtonLink>
         </p>
 
-        <p className="text-center text-sm text-white/60">
+        <p className="text-center text-sm text-muted">
           New to Novatra?{" "}
           <ButtonLink href="/auth/sign-up" variant="ghost" size="sm">
             Create an account

@@ -46,13 +46,13 @@ function ResetPasswordInner() {
         />
 
         {error ? (
-          <div className="rounded-xl border border-rose-200/15 bg-rose-300/10 px-3 py-2 text-sm text-rose-100">
+          <div className="rounded-xl border border-danger/20 bg-danger-soft px-3 py-2 text-sm text-danger">
             {error}
           </div>
         ) : null}
 
         {done ? (
-          <div className="rounded-xl border border-emerald-200/15 bg-emerald-300/10 px-3 py-2 text-sm text-emerald-100">
+          <div className="rounded-xl border border-accent/20 bg-accent-soft px-3 py-2 text-sm text-accent">
             Password updated. You can now sign in.
           </div>
         ) : null}
@@ -81,7 +81,7 @@ function ResetPasswordInner() {
           Update password
         </Button>
 
-        <p className="text-center text-sm text-white/60">
+        <p className="text-center text-sm text-muted">
           <ButtonLink href="/auth/sign-in" variant="ghost" size="sm">
             Back to sign in
           </ButtonLink>
@@ -96,8 +96,8 @@ function ResetPasswordSkeleton() {
     <Card className="p-6">
       <CardHeader title="Set a new password" subtitle="Loading…" />
       <div className="mt-5 space-y-4">
-        <div className="h-11 w-full rounded-xl border border-white/10 bg-white/5" />
-        <div className="h-11 w-full rounded-xl border border-white/10 bg-white/5" />
+        <div className="h-11 w-full rounded-xl border border-line bg-surface" />
+        <div className="h-11 w-full rounded-xl border border-line bg-surface" />
       </div>
     </Card>
   );
