@@ -10,11 +10,11 @@ export function Badge({
   className?: string;
 }) {
   const styles: Record<string, string> = {
-    muted: "bg-white/8 text-white/75 border-white/10",
-    brand: "bg-cyan-300/15 text-cyan-100 border-cyan-200/20",
-    ok: "bg-emerald-300/15 text-emerald-100 border-emerald-200/20",
-    danger: "bg-rose-300/15 text-rose-100 border-rose-200/20",
-    warning: "bg-amber-300/15 text-amber-100 border-amber-200/20",
+    muted: "bg-surface text-white/75 border-line",
+    brand: "bg-surface-2 text-white border-line",
+    ok: "bg-accent-soft text-accent border-accent/20",
+    danger: "bg-danger-soft text-danger border-danger/20",
+    warning: "bg-warning-soft text-warning border-warning/20",
   };
 
   return (

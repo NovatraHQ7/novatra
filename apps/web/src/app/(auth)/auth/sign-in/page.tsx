@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/icons";
 import { useSignIn } from "@/lib/auth";
+import { warmApi } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { isAxiosError } from "axios";
@@ -15,6 +16,8 @@ export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [isWarmingEmail, setIsWarmingEmail] = useState(false);
+  const [isWarmingGoogle, setIsWarmingGoogle] = useState(false);
 
   return (
     <Card className="p-6">
@@ -43,22 +46,33 @@ export default function SignInPage() {
         />
 
         {error ? (
-          <div className="rounded-xl border border-rose-200/15 bg-rose-300/10 px-3 py-2 text-sm text-rose-100">
+          <div className="rounded-xl border border-danger/20 bg-danger-soft px-3 py-2 text-sm text-danger">
             {error}
+          </div>
+        ) : null}
+
+        {isWarmingEmail || isWarmingGoogle ? (
+          <div className="rounded-xl border border-accent/20 bg-accent-soft px-3 py-2 text-sm text-accent">
+            Waking server. This may take a few seconds on first request.
           </div>
         ) : null}
 
         <Button
           className="w-full"
           rightIcon={<Icon name="arrowRight" />}
-          loading={signIn.isPending}
-          loadingText="Signing in…"
+          loading={signIn.isPending || isWarmingEmail}
+          loadingText={isWarmingEmail ? "Waking server…" : "Signing in…"}
+          disabled={isWarmingGoogle}
           onClick={async () => {
             setError(null);
+            setIsWarmingEmail(true);
             try {
+              await warmApi();
+              setIsWarmingEmail(false);
               await signIn.mutateAsync({ email, password });
               router.push("/dashboard");
             } catch (e: unknown) {
+              setIsWarmingEmail(false);
               if (isAxiosError<{ message?: string }>(e)) {
                 setError(e.response?.data?.message ?? "Sign in failed");
               } else {
@@ -74,8 +88,13 @@ export default function SignInPage() {
           className="w-full cursor-pointer"
           variant="secondary"
           leftIcon={<Icon name="google" className="h-4 w-4" />}
-          loading={false}
-          onClick={() => {
+          loading={isWarmingGoogle}
+          loadingText="Waking server…"
+          disabled={signIn.isPending || isWarmingEmail}
+          onClick={async () => {
+            setError(null);
+            setIsWarmingGoogle(true);
+            await warmApi();
             window.location.href =
               (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001") +
               "/auth/google/start";
@@ -85,21 +104,21 @@ export default function SignInPage() {
         </Button>
 
         <div className="flex items-center gap-3 py-1">
-          <div className="h-px flex-1 bg-white/10" />
-          <span className="text-xs text-white/45">Demo</span>
-          <div className="h-px flex-1 bg-white/10" />
+          <div className="h-px flex-1 bg-line" />
+          <span className="text-xs text-muted-2">Demo</span>
+          <div className="h-px flex-1 bg-line" />
         </div>
         <Button className="w-full" variant="ghost">
           Continue as guest
         </Button>
 
-        <p className="text-center text-sm text-white/60">
+        <p className="text-center text-sm text-muted">
           <ButtonLink href="/auth/forgot-password" variant="ghost" size="sm">
             Forgot password?
           </ButtonLink>
         </p>
 
-        <p className="text-center text-sm text-white/60">
+        <p className="text-center text-sm text-muted">
           New to Novatra?{" "}
           <ButtonLink href="/auth/sign-up" variant="ghost" size="sm">
             Create an account

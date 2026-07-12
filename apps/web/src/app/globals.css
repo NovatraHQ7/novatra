@@ -1,72 +1,58 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #0b0f17;
-  --surface: rgba(255, 255, 255, 0.10);
-  --surface-2: rgba(255, 255, 255, 0.14);
-  --border: rgba(255, 255, 255, 0.12);
-  --text: rgba(255, 255, 255, 0.92);
-  --muted: rgba(255, 255, 255, 0.70);
-  --muted-2: rgba(255, 255, 255, 0.55);
-  --brand: #6ee7ff;
-  --brand-2: #8b5cf6;
+  --bg: #101014;
+  --sidebar: #0c0c10;
+  --surface: #1a1a20;
+  --surface-2: #202027;
+  --line: #2a2a30;
+  --text: #ffffff;
+  --muted: #8a8a92;
+  --muted-2: #6f6f78;
+  --accent: #10b981;
+  --accent-ink: #06251a;
+  --accent-soft: rgba(16, 185, 129, 0.12);
   --danger: #fb7185;
-  --ok: #34d399;
-  --shadow: rgba(0, 0, 0, 0.35);
+  --danger-soft: rgba(251, 113, 133, 0.12);
+  --warning: #f5b93d;
+  --warning-soft: rgba(245, 185, 61, 0.12);
 }
 
 @theme inline {
   --color-background: var(--bg);
   --color-foreground: var(--text);
-  --font-sans: ui-rounded, "SF Pro Rounded", "SF Pro Display", "Avenir Next",
-    Avenir, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
-    Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  --color-sidebar: var(--sidebar);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-muted: var(--muted);
+  --color-muted-2: var(--muted-2);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --font-sans: Inter, "Helvetica Neue", Arial, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
 }
 
 body {
-  background: radial-gradient(
-      1200px 800px at 15% 0%,
-      rgba(110, 231, 255, 0.12),
-      rgba(110, 231, 255, 0.05) 55%,
-      transparent 78%
-    ),
-    radial-gradient(
-      900px 600px at 85% 10%,
-      rgba(139, 92, 246, 0.14),
-      rgba(139, 92, 246, 0.06) 55%,
-      transparent 80%
-    ),
-    var(--bg);
-  background-attachment: fixed;
+  background: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
   overflow-x: hidden;
 }
 
 ::selection {
-  background: rgba(110, 231, 255, 0.22);
+  background: var(--accent-soft);
 }
 
-/* Utility classes used throughout the prototype */
+/* Flat card surface used by components/ui/card.tsx and components/ui/modal.tsx */
 .nv-card {
-  background: linear-gradient(180deg, var(--surface-2), var(--surface));
-  border: 1px solid var(--border);
-  box-shadow: 0 20px 80px var(--shadow);
-  backdrop-filter: blur(10px);
-}
-
-.nv-ring {
-  box-shadow: 0 0 0 1px rgba(110, 231, 255, 0.25);
-}
-
-.nv-grid {
-  background-image: linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 56px 56px;
-  background-position: -1px -1px;
-  opacity: 0.25;
-  mask-image: radial-gradient(600px 420px at 20% 10%, #000 35%, transparent 70%);
-  pointer-events: none;
+  background: var(--surface);
+  border: 1px solid var(--line);
 }

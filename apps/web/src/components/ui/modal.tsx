@@ -34,7 +34,7 @@ export function Modal({
     <div className="fixed inset-0 z-[9999]">
       <button
         aria-label="Close modal"
-        className="fixed inset-0 bg-black/55 backdrop-blur-sm"
+        className="fixed inset-0 bg-black/70"
         onClick={onClose}
         type="button"
       />
@@ -45,14 +45,13 @@ export function Modal({
         aria-label={title}
         className={cn(
           "nv-card fixed left-1/2 top-1/2 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-2xl p-5",
-          "shadow-[0_30px_120px_rgba(0,0,0,0.6)]",
           "max-h-[calc(100vh-2rem)] overflow-auto",
         )}
       >
         <div className="space-y-1">
           <p className="text-base font-semibold text-white">{title}</p>
           {description ? (
-            <p className="text-sm text-white/60">{description}</p>
+            <p className="text-sm text-muted">{description}</p>
           ) : null}
         </div>
 

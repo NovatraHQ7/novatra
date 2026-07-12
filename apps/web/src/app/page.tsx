@@ -6,21 +6,20 @@ import Image from "next/image";
 export default function Home() {
   return (
     <div className="relative flex flex-1 items-center justify-center px-6 py-10">
-      <div className="nv-grid absolute inset-0" />
       <main className="relative w-full max-w-6xl">
         <TopBar />
 
         <section className="mx-auto grid items-center gap-10 pt-10 lg:grid-cols-2 lg:pt-14">
           <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/80">
+            <div className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-xs text-white/80">
               <Icon name="sparkles" className="h-4 w-4" />
               MVP prototype — UK → Nigeria corridor
             </div>
             <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">
               Borderless transfers,{" "}
-              <span className="text-cyan-200">built for speed</span>.
+              <span className="text-accent">built for speed</span>.
             </h1>
-            <p className="max-w-xl text-base leading-7 text-white/70">
+            <p className="max-w-xl text-base leading-7 text-muted">
               Novatra is a modern cross-border financial platform for emerging
               markets. The experience is fintech-first; Stellar-backed
               settlement runs quietly in the background.
@@ -45,7 +44,7 @@ export default function Home() {
                 value="Fintech-first"
               />
             </div>
-            <div className="flex flex-wrap items-center gap-2 pt-1 text-xs text-white/55">
+            <div className="flex flex-wrap items-center gap-2 pt-1 text-xs text-muted">
               <Pill icon="shield" label="KYC/AML-ready architecture" />
               <Pill icon="globe" label="Transparent quotes" />
               <Pill icon="wallet" label="Stablecoins (optional)" />
@@ -60,12 +59,12 @@ export default function Home() {
                   <p className="text-sm font-semibold text-white">
                     Not a “crypto app”
                   </p>
-                  <p className="text-sm text-white/60">
+                  <p className="text-sm text-muted">
                     Stablecoin liquidity and Stellar rails power settlement
                     behind the scenes.
                   </p>
                 </div>
-                <div className="rounded-xl border border-white/15 bg-white/5 p-3 text-white/85">
+                <div className="rounded-xl border border-line bg-surface p-3 text-white/85">
                   <Icon name="wallet" className="h-5 w-5" />
                 </div>
               </div>
@@ -102,17 +101,17 @@ export default function Home() {
             <Card className="p-6">
               <div className="flex items-start justify-between gap-4">
                 <div className="space-y-1">
-                  <p className="text-xs font-medium text-white/60">
+                  <p className="text-xs font-medium text-muted">
                     How it works
                   </p>
                   <h2 className="text-lg font-semibold text-white">
                     Quote → Confirm → Track
                   </h2>
-                  <p className="mt-2 text-sm text-white/60">
+                  <p className="mt-2 text-sm text-muted">
                     A simple flow that feels like a modern fintech product.
                   </p>
                 </div>
-                <div className="rounded-xl border border-white/15 bg-white/5 p-3 text-white/85">
+                <div className="rounded-xl border border-line bg-surface p-3 text-white/85">
                   <Icon name="receipt" className="h-5 w-5" />
                 </div>
               </div>
@@ -138,18 +137,18 @@ export default function Home() {
             <Card className="p-6">
               <div className="flex items-start justify-between gap-4">
                 <div className="space-y-1">
-                  <p className="text-xs font-medium text-white/60">
+                  <p className="text-xs font-medium text-muted">
                     Why this matters
                   </p>
                   <h2 className="text-lg font-semibold text-white">
                     Built for diaspora and families back home
                   </h2>
-                  <p className="mt-2 text-sm text-white/60">
+                  <p className="mt-2 text-sm text-muted">
                     Remittances power rent, school, healthcare, and emergencies.
                     Sending support shouldn’t be slow or expensive.
                   </p>
                 </div>
-                <div className="rounded-xl border border-white/15 bg-white/5 p-3 text-white/85">
+                <div className="rounded-xl border border-line bg-surface p-3 text-white/85">
                   <Icon name="globe" className="h-5 w-5" />
                 </div>
               </div>
@@ -172,13 +171,13 @@ export default function Home() {
           <Card className="p-6">
             <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
               <div className="space-y-1">
-                <p className="text-xs font-medium text-white/60">
+                <p className="text-xs font-medium text-muted">
                   Try the prototype
                 </p>
                 <h2 className="text-lg font-semibold text-white">
                   Explore the send flow and transfer receipts
                 </h2>
-                <p className="mt-1 text-sm text-white/60">
+                <p className="mt-1 text-sm text-muted">
                   UI-only for now — we’ll wire APIs next.
                 </p>
               </div>
@@ -194,15 +193,15 @@ export default function Home() {
           </Card>
         </section>
 
-        <footer className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-white/10 py-8 text-xs text-white/55 md:flex-row">
+        <footer className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-line py-8 text-xs text-muted md:flex-row">
           <p>© {new Date().getFullYear()} NovatraHQ • Prototype UI</p>
           <div className="flex items-center gap-4">
             <span className="inline-flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-cyan-300/70" />
+              <span className="h-2 w-2 rounded-full bg-accent" />
               UK → NG corridor
             </span>
             <span className="inline-flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-violet-400/70" />
+              <span className="h-2 w-2 rounded-full bg-accent/50" />
               Stellar-backed rails
             </span>
           </div>
@@ -217,7 +216,7 @@ function TopBar() {
     <div className="flex items-center justify-between gap-3">
       <div className="flex items-center gap-2">
         <div className="flex items-center gap-2">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/15 bg-white/5">
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-line bg-surface">
             <Image
               src="/brand/novatra-icon-transparent.png"
               alt="Novatra"
@@ -230,7 +229,7 @@ function TopBar() {
             <p className="text-sm font-semibold tracking-tight text-white">
               Novatra
             </p>
-            <p className="text-xs text-white/55">Borderless transfers</p>
+            <p className="text-xs text-muted">Borderless transfers</p>
           </div>
         </div>
       </div>
@@ -248,35 +247,35 @@ function QuotePreview() {
     <Card className="p-6">
       <div className="flex items-start justify-between">
         <div className="space-y-1">
-          <p className="text-sm text-white/60">Send</p>
+          <p className="text-sm text-muted">Send</p>
           <p className="text-3xl font-semibold tracking-tight text-white">
             £250.00
           </p>
         </div>
-        <div className="rounded-xl border border-white/15 bg-white/5 p-3 text-white/85">
+        <div className="rounded-xl border border-line bg-surface p-3 text-white/85">
           <Icon name="globe" className="h-5 w-5" />
         </div>
       </div>
 
       <div className="mt-5 grid grid-cols-2 gap-3">
-        <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-          <p className="text-xs text-white/55">Rate</p>
+        <div className="rounded-xl border border-line bg-surface p-4">
+          <p className="text-xs text-muted">Rate</p>
           <p className="mt-1 text-sm font-medium text-white">₦1,850 / £</p>
         </div>
-        <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-          <p className="text-xs text-white/55">Fee</p>
+        <div className="rounded-xl border border-line bg-surface p-4">
+          <p className="text-xs text-muted">Fee</p>
           <p className="mt-1 text-sm font-medium text-white">£2.99</p>
         </div>
-        <div className="col-span-2 rounded-xl border border-white/10 bg-white/5 p-4">
-          <p className="text-xs text-white/55">Recipient gets</p>
+        <div className="col-span-2 rounded-xl border border-line bg-surface p-4">
+          <p className="text-xs text-muted">Recipient gets</p>
           <p className="mt-1 text-lg font-semibold text-white">₦457,000</p>
-          <p className="mt-1 text-xs text-white/45">
+          <p className="mt-1 text-xs text-muted">
             Estimated delivery: under 1 minute
           </p>
         </div>
       </div>
 
-      <div className="mt-6 flex items-center justify-between text-xs text-white/55">
+      <div className="mt-6 flex items-center justify-between text-xs text-muted">
         <span>Corridor</span>
         <span className="text-white/80">UK → Nigeria</span>
       </div>
@@ -292,8 +291,8 @@ function Pill({
   label: string;
 }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1">
-      <Icon name={icon} className="h-4 w-4 text-white/70" />
+    <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1">
+      <Icon name={icon} className="h-4 w-4 text-muted" />
       <span>{label}</span>
     </span>
   );
@@ -310,12 +309,12 @@ function Feature({
 }) {
   return (
     <div className="flex items-start gap-3">
-      <div className="rounded-xl border border-white/15 bg-white/5 p-3 text-white/85">
+      <div className="rounded-xl border border-line bg-surface p-3 text-white/85">
         <Icon name={icon} className="h-5 w-5" />
       </div>
       <div className="space-y-1">
         <p className="text-sm font-semibold text-white">{title}</p>
-        <p className="text-sm leading-6 text-white/60">{desc}</p>
+        <p className="text-sm leading-6 text-muted">{desc}</p>
       </div>
     </div>
   );
@@ -323,13 +322,13 @@ function Feature({
 
 function Step({ n, title, desc }: { n: string; title: string; desc: string }) {
   return (
-    <div className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 p-4">
-      <div className="rounded-xl border border-white/15 bg-white/5 px-2.5 py-1 text-xs font-medium text-white/80">
+    <div className="flex items-start gap-3 rounded-2xl border border-line bg-surface p-4">
+      <div className="rounded-xl border border-line bg-surface-2 px-2.5 py-1 text-xs font-medium text-white/80">
         {n}
       </div>
       <div>
         <p className="text-sm font-semibold text-white">{title}</p>
-        <p className="mt-1 text-sm text-white/60">{desc}</p>
+        <p className="mt-1 text-sm text-muted">{desc}</p>
       </div>
     </div>
   );
@@ -345,7 +344,7 @@ function MiniStat({
   value: string;
 }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+    <div className="rounded-2xl border border-line bg-surface p-4">
       <div className="flex items-center gap-2 text-white/80">
         <Icon name={icon} className="h-4 w-4" />
         <span className="text-xs">{label}</span>

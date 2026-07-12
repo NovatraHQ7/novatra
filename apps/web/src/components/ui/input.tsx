@@ -38,27 +38,27 @@ export function Input({
           aria-invalid={Boolean(error)}
           aria-describedby={describedBy || undefined}
           className={cn(
-            "h-11 w-full rounded-xl border border-white/15 bg-white/5 px-3.5 text-sm text-white placeholder:text-white/35 outline-none transition focus:border-white/25 focus:bg-white/7 focus:ring-2 focus:ring-cyan-300/20",
+            "h-11 w-full rounded-xl border border-line bg-surface px-3.5 text-sm text-white placeholder:text-muted outline-none transition focus:border-accent/40 focus:bg-surface-2 focus:ring-2 focus:ring-accent/20",
             rightSlot ? "pr-11" : null,
-            error ? "border-rose-400/50 ring-2 ring-rose-400/15" : null,
+            error ? "border-danger/50 ring-2 ring-danger/15" : null,
             className
           )}
         />
         {rightSlot ? (
-          <div className="absolute inset-y-0 right-0 flex items-center pr-3 text-white/70">
+          <div className="absolute inset-y-0 right-0 flex items-center pr-3 text-muted">
             {rightSlot}
           </div>
         ) : null}
       </div>
       {hint ? (
-        <p id={`${rest.name ?? rest.id}-hint`} className="text-xs text-white/55">
+        <p id={`${rest.name ?? rest.id}-hint`} className="text-xs text-muted">
           {hint}
         </p>
       ) : null}
       {error ? (
         <p
           id={`${rest.name ?? rest.id}-error`}
-          className="text-xs text-rose-300"
+          className="text-xs text-danger"
         >
           {error}
         </p>
