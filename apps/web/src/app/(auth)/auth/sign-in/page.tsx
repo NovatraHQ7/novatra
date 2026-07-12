@@ -6,6 +6,7 @@ import { Button, ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/icons";
 import { useSignIn } from "@/lib/auth";
 import { warmApi } from "@/lib/api";
+import { getEmailError, getRequiredError } from "@/lib/validation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { isAxiosError } from "axios";
@@ -15,9 +16,15 @@ export default function SignInPage() {
   const signIn = useSignIn();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [touched, setTouched] = useState<{ email?: boolean; password?: boolean }>({});
+  const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isWarmingEmail, setIsWarmingEmail] = useState(false);
   const [isWarmingGoogle, setIsWarmingGoogle] = useState(false);
+
+  const emailError = getEmailError(email);
+  const passwordError = getRequiredError(password, "Password");
+  const isFormValid = !emailError && !passwordError;
 
   return (
     <AuthShell
@@ -37,6 +44,8 @@ export default function SignInPage() {
           placeholder="you@domain.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          onBlur={() => setTouched((t) => ({ ...t, email: true }))}
+          error={touched.email || submitted ? emailError : undefined}
         />
         <Input
           id="password"
@@ -46,6 +55,8 @@ export default function SignInPage() {
           placeholder="••••••••"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onBlur={() => setTouched((t) => ({ ...t, password: true }))}
+          error={touched.password || submitted ? passwordError : undefined}
         />
 
         {error ? (
@@ -67,6 +78,8 @@ export default function SignInPage() {
           loadingText={isWarmingEmail ? "Waking server…" : "Signing in…"}
           disabled={isWarmingGoogle}
           onClick={async () => {
+            setSubmitted(true);
+            if (!isFormValid) return;
             setError(null);
             setIsWarmingEmail(true);
             try {
