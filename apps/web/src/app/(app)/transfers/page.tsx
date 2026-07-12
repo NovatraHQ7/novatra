@@ -36,7 +36,7 @@ export default function TransfersPage() {
                 <p className="mt-1 text-sm text-muted">
                   To {t.beneficiary.fullName} • {t.beneficiary.bankName}
                 </p>
-                <p className="mt-1 text-xs text-muted">
+                <p className="mt-1 text-xs text-muted-2">
                   {formatDateTime(t.createdAt)} • Fee {formatMoney(t.fee.amount, "GBP")} • Rate ₦{t.rate.toLocaleString()}/£
                 </p>
               </div>
