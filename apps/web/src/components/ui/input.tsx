@@ -45,7 +45,7 @@ export function Input({
           )}
         />
         {rightSlot ? (
-          <div className="absolute inset-y-0 right-0 flex items-center pr-3 text-white/70">
+          <div className="absolute inset-y-0 right-0 flex items-center pr-3 text-muted">
             {rightSlot}
           </div>
         ) : null}
