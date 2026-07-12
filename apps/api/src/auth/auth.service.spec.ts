@@ -3,11 +3,28 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
 import { PrismaService } from '../db/prisma.service';
 
+// `jose` (used by AuthService for signJwt/verifyJwt) is ESM-only and has
+// no CommonJS build, which breaks Jest's default CJS transform as soon as
+// AuthService is imported. These tests never exercise signJwt/verifyJwt,
+// so `jose` is mocked out entirely rather than reconfiguring Jest for ESM
+// repo-wide. Mirrors the existing StellarService mock in
+// app.controller.spec.ts.
+jest.mock('jose', () => ({
+  SignJWT: jest.fn().mockImplementation(() => ({
+    setProtectedHeader: jest.fn().mockReturnThis(),
+    setIssuedAt: jest.fn().mockReturnThis(),
+    setExpirationTime: jest.fn().mockReturnThis(),
+    sign: jest.fn().mockResolvedValue('mock.jwt.token'),
+  })),
+  jwtVerify: jest.fn(),
+}));
+
 // createPasswordResetToken / hashResetToken never touch the DB, but
 // AuthService's constructor calls getAuthConfig(process.env) as a field
-// initializer, so a JWT secret must exist in the environment before the
-// provider can be instantiated at all.
+// initializer, so its zod schema must validate before the provider can be
+// instantiated at all. WEB_ORIGIN mirrors the default used in main.ts.
 process.env.AUTH_JWT_SECRET ??= 'test-secret-value';
+process.env.WEB_ORIGIN ??= 'http://localhost:3000';
 
 describe('AuthService - token helpers', () => {
   let service: AuthService;
