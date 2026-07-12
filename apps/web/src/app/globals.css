@@ -56,3 +56,25 @@ body {
   background: var(--surface);
   border: 1px solid var(--line);
 }
+
+/* Looping flow-line background on the landing page hero (app/page.tsx) */
+@keyframes nv-flow {
+  from {
+    stroke-dashoffset: 240;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.nv-flow-line {
+  animation-name: nv-flow;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nv-flow-line {
+    animation: none;
+  }
+}

@@ -1,5 +1,4 @@
 import { ButtonLink } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Icon } from "@/components/icons";
 import Image from "next/image";
 
@@ -9,13 +8,15 @@ export default function Home() {
       <main className="relative w-full max-w-6xl">
         <TopBar />
 
-        <section className="mx-auto grid items-center gap-10 pt-10 lg:grid-cols-2 lg:pt-14">
-          <div className="space-y-6">
+        <section className="relative overflow-hidden rounded-3xl pb-4 pt-10 lg:pt-14">
+          <FlowLines />
+
+          <div className="relative space-y-6 px-2">
             <div className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-xs text-white/80">
               <Icon name="sparkles" className="h-4 w-4" />
               MVP prototype — UK → Nigeria corridor
             </div>
-            <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+            <h1 className="max-w-2xl text-4xl font-semibold tracking-tight text-white sm:text-5xl">
               Borderless transfers,{" "}
               <span className="text-accent">built for speed</span>.
             </h1>
@@ -35,165 +36,128 @@ export default function Home() {
                 Sign in
               </ButtonLink>
             </div>
-            <div className="grid grid-cols-3 gap-3 pt-2">
-              <MiniStat icon="bolt" label="Settlement" value="Seconds" />
-              <MiniStat icon="exchange" label="Fees" value="Low" />
-              <MiniStat
-                icon="shield"
-                label="Experience"
-                value="Fintech-first"
-              />
-            </div>
-            <div className="flex flex-wrap items-center gap-2 pt-1 text-xs text-muted">
-              <Pill icon="shield" label="KYC/AML-ready architecture" />
-              <Pill icon="globe" label="Transparent quotes" />
-              <Pill icon="wallet" label="Stablecoins (optional)" />
-            </div>
           </div>
 
-          <div className="grid gap-4">
-            <QuotePreview />
-            <Card className="p-6">
-              <div className="flex items-start justify-between gap-4">
-                <div className="space-y-1">
-                  <p className="text-sm font-semibold text-white">
-                    Not a “crypto app”
-                  </p>
-                  <p className="text-sm text-muted">
-                    Stablecoin liquidity and Stellar rails power settlement
-                    behind the scenes.
-                  </p>
-                </div>
-                <div className="rounded-xl border border-line bg-surface p-3 text-white/85">
-                  <Icon name="wallet" className="h-5 w-5" />
-                </div>
-              </div>
-            </Card>
+          <div className="relative mt-10 grid gap-4 px-2 lg:grid-cols-3 lg:grid-rows-2">
+            <div className="lg:col-span-2 lg:row-span-2">
+              <QuotePreview />
+            </div>
+            <StatTile value="<1min" label="Settlement time" emphasized />
+            <StatTile value="3 steps" label="Quote → Confirm → Track" />
           </div>
-        </section>
 
-        <section className="mt-14 grid gap-4 lg:mt-20 lg:grid-cols-3">
-          <Card className="p-6">
-            <Feature
-              icon="exchange"
-              title="Transparent, before you pay"
-              desc="We show the rate, fee, and recipient amount upfront with a quote expiry."
+          <div className="relative mt-4 grid gap-4 px-2 sm:grid-cols-3">
+            <MiniFeature
+              title="Transparent pricing"
+              desc="Rate, fee, and amount shown before you pay."
             />
-          </Card>
-          <Card className="p-6">
-            <Feature
-              icon="bolt"
-              title="Instant settlement feel"
-              desc="Transfers feel immediate; settlement runs on modern rails designed for speed."
-            />
-          </Card>
-          <Card className="p-6">
-            <Feature
-              icon="shield"
+            <MiniFeature
               title="Built for trust"
-              desc="Clear statuses, clean receipts, and compliance hooks from day one."
+              desc="Clear statuses, clean receipts, KYC-ready."
             />
-          </Card>
-        </section>
-
-        <section className="mt-14 lg:mt-20">
-          <div className="grid gap-4 lg:grid-cols-2">
-            <Card className="p-6">
-              <div className="flex items-start justify-between gap-4">
-                <div className="space-y-1">
-                  <p className="text-xs font-medium text-muted">
-                    How it works
-                  </p>
-                  <h2 className="text-lg font-semibold text-white">
-                    Quote → Confirm → Track
-                  </h2>
-                  <p className="mt-2 text-sm text-muted">
-                    A simple flow that feels like a modern fintech product.
-                  </p>
-                </div>
-                <div className="rounded-xl border border-line bg-surface p-3 text-white/85">
-                  <Icon name="receipt" className="h-5 w-5" />
-                </div>
-              </div>
-              <div className="mt-6 space-y-3">
-                <Step
-                  n="01"
-                  title="Get a quote"
-                  desc="Enter amount and recipient, see the exact fee + FX."
-                />
-                <Step
-                  n="02"
-                  title="Fund your transfer"
-                  desc="Card and bank transfer first; stablecoin deposit remains optional."
-                />
-                <Step
-                  n="03"
-                  title="Track status"
-                  desc="Clear progress states with a receipt-style details view."
-                />
-              </div>
-            </Card>
-
-            <Card className="p-6">
-              <div className="flex items-start justify-between gap-4">
-                <div className="space-y-1">
-                  <p className="text-xs font-medium text-muted">
-                    Why this matters
-                  </p>
-                  <h2 className="text-lg font-semibold text-white">
-                    Built for diaspora and families back home
-                  </h2>
-                  <p className="mt-2 text-sm text-muted">
-                    Remittances power rent, school, healthcare, and emergencies.
-                    Sending support shouldn’t be slow or expensive.
-                  </p>
-                </div>
-                <div className="rounded-xl border border-line bg-surface p-3 text-white/85">
-                  <Icon name="globe" className="h-5 w-5" />
-                </div>
-              </div>
-
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                <MiniStat icon="sparkles" label="Focus" value="Africa-first" />
-                <MiniStat
-                  icon="exchange"
-                  label="Pricing"
-                  value="Clear & fair"
-                />
-                <MiniStat icon="bolt" label="Delivery" value="Fast" />
-                <MiniStat icon="shield" label="Security" value="Serious" />
-              </div>
-            </Card>
+            <MiniFeature
+              title={'Not a "crypto app"'}
+              desc="Stellar rails run quietly behind the scenes."
+            />
           </div>
         </section>
 
-        <section className="mt-14 lg:mt-20">
-          <Card className="p-6">
-            <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
-              <div className="space-y-1">
-                <p className="text-xs font-medium text-muted">
-                  Try the prototype
+        <section className="mt-16 lg:mt-24">
+          <SectionLabel>Why Novatra</SectionLabel>
+          <div className="mt-4 grid gap-4 lg:grid-cols-[1.3fr_1fr]">
+            <div className="rounded-2xl border border-line bg-surface p-7">
+              <h2 className="text-xl font-semibold text-white">
+                Transparent, before you pay
+              </h2>
+              <p className="mt-2 max-w-md text-sm leading-6 text-muted">
+                We show the rate, fee, and recipient amount upfront with a
+                quote expiry — no surprises after you commit.
+              </p>
+            </div>
+            <div className="flex flex-col justify-center gap-5 px-1">
+              <div className="border-b border-line pb-5">
+                <p className="text-sm font-semibold text-white">
+                  Instant settlement feel
                 </p>
-                <h2 className="text-lg font-semibold text-white">
-                  Explore the send flow and transfer receipts
-                </h2>
                 <p className="mt-1 text-sm text-muted">
-                  UI-only for now — we’ll wire APIs next.
+                  Transfers feel immediate; settlement runs on modern rails
+                  designed for speed.
                 </p>
               </div>
-              <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
-                <ButtonLink href="/send" rightIcon={<Icon name="arrowRight" />}>
-                  Start a transfer
-                </ButtonLink>
-                <ButtonLink href="/transfers" variant="secondary">
-                  View transfers
-                </ButtonLink>
+              <div>
+                <p className="text-sm font-semibold text-white">
+                  Built for trust
+                </p>
+                <p className="mt-1 text-sm text-muted">
+                  Clear statuses, clean receipts, and compliance hooks from
+                  day one.
+                </p>
               </div>
             </div>
-          </Card>
+          </div>
         </section>
 
-        <footer className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-line py-8 text-xs text-muted md:flex-row">
+        <section className="mt-16 lg:mt-24">
+          <SectionLabel>How it works</SectionLabel>
+          <div className="mt-6 grid gap-8 sm:grid-cols-3 sm:divide-x sm:divide-line">
+            <Step
+              n="01"
+              title="Get a quote"
+              desc="Enter amount and recipient, see the exact fee + FX."
+            />
+            <Step
+              n="02"
+              title="Fund your transfer"
+              desc="Card and bank transfer first; stablecoin deposit remains optional."
+            />
+            <Step
+              n="03"
+              title="Track status"
+              desc="Clear progress states with a receipt-style details view."
+              accent
+            />
+          </div>
+        </section>
+
+        <section className="mt-16 lg:mt-24">
+          <div className="flex flex-col items-center gap-8 rounded-3xl bg-surface p-8 sm:flex-row sm:p-10">
+            <div className="flex-1">
+              <SectionLabel>Why it matters</SectionLabel>
+              <h2 className="mt-3 text-xl font-semibold text-white">
+                Built for diaspora and families back home
+              </h2>
+              <p className="mt-2 max-w-md text-sm leading-6 text-muted">
+                Remittances power rent, school, healthcare, and emergencies.
+                Sending support shouldn’t be slow or expensive.
+              </p>
+            </div>
+            <div className="shrink-0 text-center">
+              <p className="text-4xl font-bold text-accent">Africa-first</p>
+              <p className="mt-2 max-w-55 text-xs text-muted">
+                Focus and pricing built around one corridor, done right.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-16 border-y border-line py-10 text-center lg:mt-24">
+          <h2 className="text-xl font-semibold text-white">
+            Explore the send flow and transfer receipts
+          </h2>
+          <p className="mt-1 text-sm text-muted">
+            UI-only for now — we’ll wire APIs next.
+          </p>
+          <div className="mt-5 flex flex-col items-center justify-center gap-2 sm:flex-row">
+            <ButtonLink href="/send" rightIcon={<Icon name="arrowRight" />}>
+              Start a transfer
+            </ButtonLink>
+            <ButtonLink href="/transfers" variant="secondary">
+              View transfers
+            </ButtonLink>
+          </div>
+        </section>
+
+        <footer className="mt-10 flex flex-col items-center justify-between gap-3 py-8 text-xs text-muted md:flex-row">
           <p>© {new Date().getFullYear()} NovatraHQ • Prototype UI</p>
           <div className="flex items-center gap-4">
             <span className="inline-flex items-center gap-2">
@@ -242,9 +206,41 @@ function TopBar() {
   );
 }
 
+function FlowLines() {
+  return (
+    <svg
+      className="pointer-events-none absolute inset-0 h-full w-full"
+      viewBox="0 0 800 500"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M -50 380 C 150 280, 250 420, 420 260 S 650 140, 900 200"
+        stroke="#10b981"
+        strokeWidth="2"
+        fill="none"
+        opacity="0.35"
+        strokeDasharray="14 10"
+        className="nv-flow-line"
+        style={{ animationDuration: "9s" }}
+      />
+      <path
+        d="M -50 260 C 200 380, 300 120, 480 300 S 700 360, 900 260"
+        stroke="#ffffff"
+        strokeWidth="1"
+        fill="none"
+        opacity="0.12"
+        strokeDasharray="10 14"
+        className="nv-flow-line"
+        style={{ animationDuration: "13s", animationDirection: "reverse" }}
+      />
+    </svg>
+  );
+}
+
 function QuotePreview() {
   return (
-    <Card className="p-6">
+    <div className="h-full rounded-2xl border border-line bg-surface p-6">
       <div className="flex items-start justify-between">
         <div className="space-y-1">
           <p className="text-sm text-muted">Send</p>
@@ -252,21 +248,21 @@ function QuotePreview() {
             £250.00
           </p>
         </div>
-        <div className="rounded-xl border border-line bg-surface p-3 text-white/85">
+        <div className="rounded-xl border border-line bg-surface-2 p-3 text-white/85">
           <Icon name="globe" className="h-5 w-5" />
         </div>
       </div>
 
       <div className="mt-5 grid grid-cols-2 gap-3">
-        <div className="rounded-xl border border-line bg-surface p-4">
+        <div className="rounded-xl border border-line bg-surface-2 p-4">
           <p className="text-xs text-muted">Rate</p>
           <p className="mt-1 text-sm font-medium text-white">₦1,850 / £</p>
         </div>
-        <div className="rounded-xl border border-line bg-surface p-4">
+        <div className="rounded-xl border border-line bg-surface-2 p-4">
           <p className="text-xs text-muted">Fee</p>
           <p className="mt-1 text-sm font-medium text-white">£2.99</p>
         </div>
-        <div className="col-span-2 rounded-xl border border-line bg-surface p-4">
+        <div className="col-span-2 rounded-xl border border-line bg-surface-2 p-4">
           <p className="text-xs text-muted">Recipient gets</p>
           <p className="mt-1 text-lg font-semibold text-white">₦457,000</p>
           <p className="mt-1 text-xs text-muted">
@@ -279,77 +275,90 @@ function QuotePreview() {
         <span>Corridor</span>
         <span className="text-white/80">UK → Nigeria</span>
       </div>
-    </Card>
+    </div>
   );
 }
 
-function Pill({
-  icon,
+function StatTile({
+  value,
   label,
+  emphasized,
 }: {
-  icon: Parameters<typeof Icon>[0]["name"];
+  value: string;
   label: string;
+  emphasized?: boolean;
 }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1">
-      <Icon name={icon} className="h-4 w-4 text-muted" />
-      <span>{label}</span>
-    </span>
+    <div
+      className={
+        emphasized
+          ? "flex flex-col justify-center rounded-2xl bg-accent p-6 text-accent-ink"
+          : "flex flex-col justify-center rounded-2xl border border-line bg-surface p-6"
+      }
+    >
+      <p
+        className={
+          emphasized
+            ? "text-2xl font-bold"
+            : "text-2xl font-bold text-white"
+        }
+      >
+        {value}
+      </p>
+      <p
+        className={
+          emphasized
+            ? "mt-1 text-xs font-medium"
+            : "mt-1 text-xs text-muted"
+        }
+      >
+        {label}
+      </p>
+    </div>
   );
 }
 
-function Feature({
-  icon,
+function MiniFeature({ title, desc }: { title: string; desc: string }) {
+  return (
+    <div className="rounded-2xl border border-line bg-surface p-5">
+      <p className="text-sm font-semibold text-white">{title}</p>
+      <p className="mt-1.5 text-xs leading-5 text-muted">{desc}</p>
+    </div>
+  );
+}
+
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="text-xs font-semibold uppercase tracking-wider text-accent">
+      {children}
+    </p>
+  );
+}
+
+function Step({
+  n,
   title,
   desc,
+  accent,
 }: {
-  icon: Parameters<typeof Icon>[0]["name"];
+  n: string;
   title: string;
   desc: string;
+  accent?: boolean;
 }) {
   return (
-    <div className="flex items-start gap-3">
-      <div className="rounded-xl border border-line bg-surface p-3 text-white/85">
-        <Icon name={icon} className="h-5 w-5" />
-      </div>
-      <div className="space-y-1">
-        <p className="text-sm font-semibold text-white">{title}</p>
-        <p className="text-sm leading-6 text-muted">{desc}</p>
-      </div>
-    </div>
-  );
-}
-
-function Step({ n, title, desc }: { n: string; title: string; desc: string }) {
-  return (
-    <div className="flex items-start gap-3 rounded-2xl border border-line bg-surface p-4">
-      <div className="rounded-xl border border-line bg-surface-2 px-2.5 py-1 text-xs font-medium text-white/80">
+    <div className="pl-0 sm:pl-8 first:pl-0">
+      <p
+        className={
+          accent
+            ? "text-4xl font-extrabold text-accent"
+            : "text-4xl font-extrabold text-line"
+        }
+      >
         {n}
-      </div>
-      <div>
-        <p className="text-sm font-semibold text-white">{title}</p>
-        <p className="mt-1 text-sm text-muted">{desc}</p>
-      </div>
-    </div>
-  );
-}
-
-function MiniStat({
-  icon,
-  label,
-  value,
-}: {
-  icon: Parameters<typeof Icon>[0]["name"];
-  label: string;
-  value: string;
-}) {
-  return (
-    <div className="rounded-2xl border border-line bg-surface p-4">
-      <div className="flex items-center gap-2 text-white/80">
-        <Icon name={icon} className="h-4 w-4" />
-        <span className="text-xs">{label}</span>
-      </div>
-      <p className="mt-2 text-sm font-semibold text-white">{value}</p>
+      </p>
+      <p className="mt-2 text-sm font-semibold text-white">{title}</p>
+      <p className="mt-1 text-sm leading-6 text-muted">{desc}</p>
     </div>
   );
 }
