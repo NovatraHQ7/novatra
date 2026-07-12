@@ -23,7 +23,7 @@ export function CardHeader({
     <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
       <div className="space-y-1">
         <h2 className="text-base font-semibold text-white">{title}</h2>
-        {subtitle ? <p className="text-sm text-white/60">{subtitle}</p> : null}
+        {subtitle ? <p className="text-sm text-muted">{subtitle}</p> : null}
       </div>
       {right ? <div className="sm:shrink-0 sm:self-start">{right}</div> : null}
     </div>

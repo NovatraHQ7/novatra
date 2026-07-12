@@ -13,14 +13,13 @@ type CommonProps = {
 };
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-xl font-medium transition will-change-transform active:translate-y-px disabled:opacity-50 disabled:cursor-not-allowed";
+  "inline-flex items-center justify-center gap-2 rounded-lg font-medium transition will-change-transform active:translate-y-px disabled:opacity-50 disabled:cursor-not-allowed";
 
 const variants: Record<NonNullable<CommonProps["variant"]>, string> = {
-  primary:
-    "bg-white text-black hover:bg-white/90 shadow-[0_16px_60px_rgba(0,0,0,0.45)]",
-  secondary: "bg-white/10 text-white hover:bg-white/15 border border-white/15",
-  ghost: "bg-transparent text-white/90 hover:bg-white/10",
-  danger: "bg-rose-500 text-white hover:bg-rose-500/90",
+  primary: "bg-accent text-accent-ink hover:bg-accent/90",
+  secondary: "bg-surface text-white hover:bg-surface-2 border border-line",
+  ghost: "bg-transparent text-white/90 hover:bg-surface",
+  danger: "bg-danger text-white hover:bg-danger/90",
 };
 
 const sizes: Record<NonNullable<CommonProps["size"]>, string> = {
