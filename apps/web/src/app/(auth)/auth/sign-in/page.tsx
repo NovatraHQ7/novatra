@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardHeader } from "@/components/ui/card";
+import { AuthShell } from "@/components/auth/auth-shell";
 import { Input } from "@/components/ui/input";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { Icon } from "@/components/icons";
@@ -20,13 +20,16 @@ export default function SignInPage() {
   const [isWarmingGoogle, setIsWarmingGoogle] = useState(false);
 
   return (
-    <Card className="p-6">
-      <CardHeader
-        title="Welcome back"
-        subtitle="Sign in to continue your transfer."
-      />
+    <AuthShell
+      eyebrow="Welcome back"
+      headline="Pick up right where you left off."
+      mobileHeadline="Welcome back"
+      panel={<LastQuoteCard />}
+    >
+      <h1 className="text-xl font-semibold text-white">Sign in</h1>
+      <p className="mt-1 text-sm text-muted">Continue your transfer.</p>
 
-      <div className="mt-5 space-y-4">
+      <div className="mt-6 space-y-4">
         <Input
           id="email"
           name="email"
@@ -125,6 +128,21 @@ export default function SignInPage() {
           </ButtonLink>
         </p>
       </div>
-    </Card>
+    </AuthShell>
+  );
+}
+
+function LastQuoteCard() {
+  return (
+    <div className="rounded-2xl border border-line bg-background p-5">
+      <p className="text-xs text-muted">Last quote</p>
+      <p className="mt-1 text-xl font-semibold text-white">
+        £250 → ₦457,000
+      </p>
+      <div className="mt-2 flex items-center justify-between text-xs text-muted">
+        <span>Delivery</span>
+        <span className="font-semibold text-accent">Under 1 min</span>
+      </div>
+    </div>
   );
 }
