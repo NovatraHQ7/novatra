@@ -52,7 +52,7 @@ export default function SignInPage() {
         ) : null}
 
         {isWarmingEmail || isWarmingGoogle ? (
-          <div className="rounded-xl border border-cyan-200/15 bg-cyan-300/10 px-3 py-2 text-sm text-cyan-100">
+          <div className="rounded-xl border border-accent/20 bg-accent-soft px-3 py-2 text-sm text-accent">
             Waking server. This may take a few seconds on first request.
           </div>
         ) : null}
