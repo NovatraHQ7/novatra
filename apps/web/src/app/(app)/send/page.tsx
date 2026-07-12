@@ -301,7 +301,7 @@ function FundingTabs({
       className={[
         "flex-1 rounded-xl border px-3 py-3 text-left text-sm transition",
         method === m
-          ? "border-accent/25 bg-accent-soft text-white"
+          ? "border-accent/25 bg-accent-soft text-accent"
           : "border-line bg-surface text-muted hover:bg-surface-2",
       ].join(" ")}
     >
