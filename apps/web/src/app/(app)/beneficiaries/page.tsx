@@ -98,12 +98,12 @@ export default function BeneficiariesPage() {
             />
           </div>
 
-          <div className="mt-5 divide-y divide-white/10">
+          <div className="mt-5 divide-y divide-line">
             {filtered.map((b) => (
               <div key={b.id} className="flex items-start justify-between gap-3 py-4">
                 <div className="min-w-0">
                   <p className="truncate text-sm font-semibold text-white">{b.fullName}</p>
-                  <p className="mt-1 text-sm text-white/60">
+                  <p className="mt-1 text-sm text-muted">
                     {b.bankName} • {b.accountNumberMasked}
                   </p>
                 </div>
@@ -124,7 +124,7 @@ export default function BeneficiariesPage() {
               </div>
             ))}
             {filtered.length === 0 ? (
-              <div className="py-10 text-center text-sm text-white/60">
+              <div className="py-10 text-center text-sm text-muted">
                 No beneficiaries found.
               </div>
             ) : null}
@@ -137,7 +137,7 @@ export default function BeneficiariesPage() {
             <InlineAddForm
               onAdd={(b) => setItems((prev) => [b, ...prev])}
             />
-            <p className="text-xs leading-5 text-white/55">
+            <p className="text-xs leading-5 text-muted">
               Next iteration: validate bank details, support payout methods, and sync to API.
             </p>
           </div>
