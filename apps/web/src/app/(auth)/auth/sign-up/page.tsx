@@ -7,6 +7,7 @@ import { Icon } from "@/components/icons";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useSignUp } from "@/lib/auth";
+import { getEmailError, getPasswordError, getRequiredError } from "@/lib/validation";
 import { isAxiosError } from "axios";
 
 export default function SignUpPage() {
@@ -15,7 +16,18 @@ export default function SignUpPage() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [touched, setTouched] = useState<{
+    fullName?: boolean;
+    email?: boolean;
+    password?: boolean;
+  }>({});
+  const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const fullNameError = getRequiredError(fullName, "Full name");
+  const emailError = getEmailError(email);
+  const passwordError = getPasswordError(password);
+  const isFormValid = !fullNameError && !emailError && !passwordError;
 
   return (
     <Card className="p-6">
@@ -32,6 +44,8 @@ export default function SignUpPage() {
           placeholder="Precious David"
           value={fullName}
           onChange={(e) => setFullName(e.target.value)}
+          onBlur={() => setTouched((t) => ({ ...t, fullName: true }))}
+          error={touched.fullName || submitted ? fullNameError : undefined}
         />
         <Input
           id="email"
@@ -40,6 +54,8 @@ export default function SignUpPage() {
           placeholder="you@domain.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          onBlur={() => setTouched((t) => ({ ...t, email: true }))}
+          error={touched.email || submitted ? emailError : undefined}
         />
         <Input
           id="password"
@@ -50,6 +66,8 @@ export default function SignUpPage() {
           hint="Minimum 8 characters."
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onBlur={() => setTouched((t) => ({ ...t, password: true }))}
+          error={touched.password || submitted ? passwordError : undefined}
         />
 
         {error ? (
@@ -64,6 +82,8 @@ export default function SignUpPage() {
           loading={signUp.isPending}
           loadingText="Creating account…"
           onClick={async () => {
+            setSubmitted(true);
+            if (!isFormValid) return;
             setError(null);
             try {
               await signUp.mutateAsync({ fullName, email, password });
